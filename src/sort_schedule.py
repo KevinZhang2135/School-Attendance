@@ -1,6 +1,5 @@
 import csv
 
-
 class Schedule:
     def __init__(self, filepath: str):
         self._filepath = filepath
@@ -38,7 +37,7 @@ def sortList(data_array: list, *sortBy) -> list:
     sortBy = list(sortBy)
     sortedArray = []
 
-    # recursion sort unti parameters are empty
+    # recursion sort  unti parameters are empty
     if len(sortBy) > 0:
         floats = []
         strings = []
@@ -64,16 +63,44 @@ def sortList(data_array: list, *sortBy) -> list:
 
     return sortedArray
 
-def filter(data_array: list, filter) -> list:
-    candidates = []
+def find_substitute(data_array: list, absent_teacher: str) -> list:
+    """returns suitable substitutes for absent teachers"""
+    substitutes = []
+    periods = []
+
+    # locate periods of the absent teacher
     for row in data_array:
-        print(filter(row))
-        if filter(row):
-            candidates.append(row)
+        if row[3] == absent_teacher.lower():
+            periods.append(row[-6])
 
-    return candidates
+    # finds suitable substitues
+    for row in data_array:
+        if row[3] != absent_teacher.lower() and row[-6] not in periods:
+            substitutes.append(row)
 
-#def exclude()
+    return substitutes
+
+def print_table(data_array: list, header: list):
+    """prints 2d arrays are a table"""
+    col_sep = [0] * len(header)
+    for row in data_array:
+        for i, col in enumerate(row):
+            if len(str(col)) > col_sep[i]:
+                col_sep[i] = len(str(col))
+
+    for i, item in enumerate(header):
+        if len(str(item)) > col_sep[i]:
+            col_sep[i] = len(str(item))
+        
+        print(item, end=((col_sep[i] + 1 - len(str(item))) * ' ') + '|')
+
+    print()
+
+    for row in data_array:
+        for i, col in enumerate(row):
+            print(col, end=((col_sep[i] + 1 - len(str(col))) * ' ') + '|')
+
+        print()
 
 # only executes in main file
 # retrieves csv from filepath string as a 2d array
@@ -82,9 +109,11 @@ if __name__ == "__main__":
         schedule = Schedule.csv_copy(csv_file)
 
         # lambda anonymous keys sorts by ascending priority
-        #for subject in sortList(schedule[1:4], lambda x: x[-2], lambda x: x[3][0]):
-        #    print(subject)
+        print_table(
+            sortList(schedule[1:], lambda x: x[-6]), 
+            schedule[0]) 
 
-        absent = "adamou, s."
-        for subject in filter(schedule[1:4]):
-            print(subject)
+        print()
+        print_table(
+            find_substitute(schedule[1:], 'Blacklock, D.'), 
+            schedule[0])
