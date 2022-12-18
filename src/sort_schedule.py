@@ -32,36 +32,54 @@ class Schedule:
 
         return filearray
 
-def sortList(data_array: list, *sortBy) -> list:
+def sort_list(data_array: list, *sort_by) -> list:
     """sorts data by ascending priority of parameters"""
-    sortBy = list(sortBy)
-    sortedArray = []
+    sort_by = list(sort_by)
+    sorted_array = []
 
-    # recursion sort  unti parameters are empty
-    if len(sortBy) > 0:
+    # recursion sort until parameters are empty
+    if len(sort_by) > 0:
         floats = []
         strings = []
 
         # sorts strings and floats separately
         for row in data_array:
-            if type(sortBy[0](row)) is float:
+            if type(sort_by[0](row)) is float:
                 floats.append(row)
 
             else:
                 strings.append(row)
 
-        floats.sort(key=sortBy[0])
-        strings.sort(key=sortBy[0])
+        floats.sort(key=sort_by[0])
+        strings.sort(key=sort_by[0])
 
-        sortedArray = floats + strings
-        sortBy.pop(0)
+        sorted_array = floats + strings
+        sort_by.pop(0)
 
-        sortedArray = sortList(sortedArray, *sortBy)
+        sorted_array = sort_list(sorted_array, *sort_by)
 
     else:
-        sortedArray = data_array.copy()
+        sorted_array = data_array.copy()
 
-    return sortedArray
+    return sorted_array
+
+def filter_list(data_array: list, *filter_by) -> list:
+    filter_by = list(filter_by)
+    filter_array = []
+
+    # recursion filter until parameters are empty
+    if len(filter_by) > 0:
+        for row in data_array:
+            if (filter_by[0](row)):
+                filter_array.append(row)
+        
+        filter_by.pop(0)
+        filter_array = filter_list(filter_array, *filter_by)
+    
+    else:
+        filter_array = data_array.copy()
+
+    return filter_array
 
 def find_substitute(data_array: list, absent_teacher: str) -> list:
     """returns suitable substitutes for absent teachers"""
@@ -82,6 +100,7 @@ def find_substitute(data_array: list, absent_teacher: str) -> list:
 
 def print_table(data_array: list, header: list):
     """prints 2d arrays are a table"""
+    # finds longest characters
     col_sep = [0] * len(header)
     for row in data_array:
         for i, col in enumerate(row):
@@ -89,16 +108,17 @@ def print_table(data_array: list, header: list):
                 col_sep[i] = len(str(col))
 
     for i, item in enumerate(header):
+        # finds longest characters
         if len(str(item)) > col_sep[i]:
             col_sep[i] = len(str(item))
         
-        print(item, end=((col_sep[i] + 1 - len(str(item))) * ' ') + '|')
+        print(item, end=((col_sep[i] + 1 - len(str(item))) * ' ') + '|') # nice margins between columns
 
     print()
 
     for row in data_array:
         for i, col in enumerate(row):
-            print(col, end=((col_sep[i] + 1 - len(str(col))) * ' ') + '|')
+            print(col, end=((col_sep[i] + 1 - len(str(col))) * ' ') + '|') # nice margins between columns
 
         print()
 
@@ -109,11 +129,15 @@ if __name__ == "__main__":
         schedule = Schedule.csv_copy(csv_file)
 
         # lambda anonymous keys sorts by ascending priority
+        #print_table(
+        #    sort_list(schedule[1:], lambda x: x[-6]), 
+        #    schedule[0]) 
+
         print_table(
-            sortList(schedule[1:], lambda x: x[-6]), 
+            filter_list(schedule[1:], lambda x: x[3].lower() == "adamou, s."), 
             schedule[0]) 
 
         print()
-        print_table(
-            find_substitute(schedule[1:], 'Blacklock, D.'), 
-            schedule[0])
+        #print_table(
+        #    find_substitute(schedule[1:], 'Blacklock, D.'), 
+        #    schedule[0])
