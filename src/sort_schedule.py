@@ -34,6 +34,7 @@ class Schedule:
 
 def sort_list(data_array: list, *sort_by) -> list:
     """sorts data by ascending priority of parameters"""
+    data_array = data_array.copy()
     sort_by = list(sort_by)
     sorted_array = []
 
@@ -59,11 +60,12 @@ def sort_list(data_array: list, *sort_by) -> list:
         sorted_array = sort_list(sorted_array, *sort_by)
 
     else:
-        sorted_array = data_array.copy()
+        sorted_array = data_array
 
     return sorted_array
 
 def filter_list(data_array: list, *filter_by) -> list:
+    data_array = data_array.copy()
     filter_by = list(filter_by)
     filter_array = []
 
@@ -77,26 +79,41 @@ def filter_list(data_array: list, *filter_by) -> list:
         filter_array = filter_list(filter_array, *filter_by)
     
     else:
-        filter_array = data_array.copy()
+        filter_array = data_array
 
     return filter_array
 
-def find_substitute(data_array: list, absent_teacher: str) -> list:
+def find_substitutes(data_array: list, absent_teacher: str):
     """returns suitable substitutes for absent teachers"""
-    substitutes = []
-    periods = []
-
     # locate periods of the absent teacher
-    for row in data_array:
-        if row[3] == absent_teacher.lower():
-            periods.append(row[-6])
+    data_array = data_array.copy()
+    periods = [subject[-6] for subject in filter_list(
+        data_array, 
+        lambda x: x[3] == absent_teacher.lower())]
+
+    print(periods)
 
     # finds suitable substitues
-    for row in data_array:
-        if row[3] != absent_teacher.lower() and row[-6] not in periods:
-            substitutes.append(row)
+    candidates = filter_list(
+        data_array, 
+        lambda x: x[3] != absent_teacher.lower() and x[-6] not in periods)
 
-    return substitutes
+    for period in sorted(periods):
+        if len(candidates) > 0:
+            for i, substitute in enumerate(candidates):
+                if substitute[-6] != period:
+                    for selected_sub in filter_list(data_array, lambda x: x[3] == substitute[3]):
+                        data_array.pop(data_array.index(selected_sub))
+                        data_array.append(selected_sub)
+
+                    candidates.pop(i)
+                    print(f'{selected_sub} {period}')
+                break
+
+        else:
+            print(f'none {period}')
+    
+    return data_array
 
 def print_table(data_array: list, header: list):
     """prints 2d arrays are a table"""
@@ -125,19 +142,18 @@ def print_table(data_array: list, header: list):
 # only executes in main file
 # retrieves csv from filepath string as a 2d array
 if __name__ == "__main__":
-    with Schedule('../schedules/CHS Master Schedule Matrix.csv') as csv_file:
+    filepath = '../schedules/test.csv'
+    with Schedule(filepath) as csv_file:
         schedule = Schedule.csv_copy(csv_file)
+        header = schedule[0]
+        schedule = find_substitutes(schedule[1:], 'Blacklock, D.')
+        schedule.insert(0, header)
 
-        # lambda anonymous keys sorts by ascending priority
-        #print_table(
-        #    sort_list(schedule[1:], lambda x: x[-6]), 
-        #    schedule[0]) 
+    with open(filepath, 'w', newline='') as csvfile:    
+        new_schedule = csv.writer(csvfile)
+        for row in schedule:
+            new_schedule.writerow(row)
 
-        print_table(
-            filter_list(schedule[1:], lambda x: x[3].lower() == "adamou, s."), 
-            schedule[0]) 
 
-        print()
-        #print_table(
-        #    find_substitute(schedule[1:], 'Blacklock, D.'), 
-        #    schedule[0])
+
+
