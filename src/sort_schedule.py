@@ -106,8 +106,10 @@ def find_substitutes(data_array: list, absent_teacher: str):
                         data_array.pop(data_array.index(selected_sub))
                         data_array.append(selected_sub)
 
-                    candidates.pop(i)
-                    print(f'{selected_sub} {period}')
+                    for selected_sub in filter_list(candidates, lambda x: x[3] == substitute[3]):
+                        candidates.pop(candidates.index(selected_sub))
+
+                    print(f'{selected_sub[3]} {period}')
                 break
 
         else:
