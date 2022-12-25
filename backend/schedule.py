@@ -91,29 +91,83 @@ def find_substitutes(data_array: list, absent_teacher: str):
         data_array, 
         lambda x: x[3] == absent_teacher.lower())]
 
-    print(periods)
-
-    # finds suitable substitues
+    # finds teachers who are not the absent teacher
     candidates = filter_list(
         data_array, 
-        lambda x: x[3] != absent_teacher.lower() and x[-6] not in periods)
+        lambda x: x[3] != absent_teacher.lower())
+
+    selected_subs = []
 
     for period in sorted(periods):
         if len(candidates) > 0:
-            for i, substitute in enumerate(candidates):
-                for selected_sub in filter_list(candidates, lambda x: x[3] == substitute[3]):
-                    candidates.pop(candidates.index(selected_sub))
-                    yield selected_sub[3], period
+            for substitute in candidates:
+                # finds teachers who are not teaching during the absent periods
+                if substitute[-6] != period:
+                    # finds other periods the teacher may also be in
+                    for selected_sub in filter_list(candidates, lambda x: x[3] == substitute[3]): 
+                        candidates.pop(candidates.index(selected_sub))
+
+                    selected_subs.append((selected_sub[3], period))
+                    print(f'{selected_sub[3]} {period}')
 
                 break
 
         else:
+            selected_subs.append((None, period))
             print(f'none {period}')
     
+    return selected_subs
+
+def move_teacher(data_array: list, teacher: str):
+    """moves teachers to the end of the schedule list"""
+    data_array = data_array.copy()
+    for period in filter_list(data_array, lambda x: x[3] == teacher):
+        data_array.pop(data_array.index(period))
+        data_array.append(period)
+
     return data_array
 
-def select_teacher(data_array: list, absent_teacher: list):
-    pass
+
+def swap_teachers(data_array: list, to_swap: str, target: str):
+    """swaps two teachers within the schedule list"""
+    swap_periods = filter_list(
+        data_array, 
+        lambda x: x[3] == to_swap.lower())
+    
+    # finds first the occurrence of to swap period
+    swap_index = len(data_array)
+    for period in swap_periods:
+        if data_array.index(period) < swap_index:
+            swap_index = data_array.index(period)
+
+    target_periods = filter_list(
+        data_array, 
+        lambda x: x[3] == target.lower())
+    
+    # finds first the occurrence of target period
+    target_index = len(data_array)
+    for period in target_periods:
+        if data_array.index(period) < target_index:
+            target_index = data_array.index(period)
+
+    # switches values in case so the greater index is the target periods
+    if swap_index > target_index:
+        swap_index, target_index = target_index, swap_index
+        swap_periods, target_periods = target_periods, swap_periods
+        
+    # swapping 
+    swapped_array = filter_list(
+        data_array, 
+        lambda x: x not in swap_periods and x not in target_periods)
+
+    for period in target_periods:
+        swapped_array.insert(swap_index, period)
+
+    for period in swap_periods:
+        swapped_array.insert(target_index + len(target_periods), period)
+
+    return swapped_array
+
 
 def print_table(data_array: list, header: list):
     """prints 2d arrays are a table"""
@@ -139,23 +193,27 @@ def print_table(data_array: list, header: list):
 
         print()
 
-# only executes in main file
-# retrieves csv from filepath string as a 2d array
+
 if __name__ == "__main__":
-    filepath = '../schedules/test.csv'
+    filepath = 'schedules/test.csv'
+    # retrieves csv from filepath string as a 2d array
     with Schedule(filepath) as csv_file:
         schedule = Schedule.csv_copy(csv_file)
         header = schedule[0]
-        substitues = find_substitutes(schedule[1:], 'Blacklock, D.')
-        for x in substitues:
-            print(x) 
+
+        #find_substitutes(schedule[1:], 'Blacklock, D.')
         #schedule.insert(0, header)
 
+        for i in schedule[38:43]:
+            print(i)
+
+        print()
+        for i in swap_teachers(schedule[38:43], 'birk, r.', 'Blacklock, D.'):
+            print(i)
+
+    
     #with open(filepath, 'w', newline='') as csvfile:    
     #    new_schedule = csv.writer(csvfile)
     #    for row in schedule:
     #        new_schedule.writerow(row)
-
-
-
 
