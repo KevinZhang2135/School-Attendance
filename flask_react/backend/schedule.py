@@ -83,39 +83,30 @@ def filter_list(data_array: list, *filter_by) -> list:
 
     return filter_array
 
-def find_substitutes(data_array: list, absent_teacher: str):
-    """returns suitable substitutes for absent teachers"""
+def find_substitutes(candidates: list, *periods) -> list:
+    """returns a list of suitable substitutes and their periods for absent teachers"""
     # locate periods of the absent teacher
-    data_array = data_array.copy()
-    periods = [subject[-6] for subject in filter_list(
-        data_array, 
-        lambda x: x[3] == absent_teacher.lower())]
-
-    # finds teachers who are not the absent teacher
-    candidates = filter_list(
-        data_array, 
-        lambda x: x[3] != absent_teacher.lower())
-
+    candidates = candidates.copy()
     selected_subs = []
 
-    for period in sorted(periods):
+    for period in periods:
         if len(candidates) > 0:
             for substitute in candidates:
                 # finds teachers who are not teaching during the absent periods
-                if substitute[-6] != period:
+                if substitute[-6] == period:
                     # finds other periods the teacher may also be in
-                    for selected_sub in filter_list(candidates, lambda x: x[3] == substitute[3]): 
+                    for selected_sub in filter_list(candidates, lambda x: x[3] == substitute[3]):
                         candidates.pop(candidates.index(selected_sub))
 
                     selected_subs.append((selected_sub[3], period))
-                    print(f'{selected_sub[3]} {period}')
+                    print(f'{substitute} {period}')#selected_sub[3]
 
-                break
+                    break
 
         else:
             selected_subs.append((None, period))
             print(f'none {period}')
-    
+
     return selected_subs
 
 def move_teacher(data_array: list, teacher: str):
@@ -126,7 +117,6 @@ def move_teacher(data_array: list, teacher: str):
         data_array.append(period)
 
     return data_array
-
 
 def swap_teachers(data_array: list, to_swap: str, target: str):
     """swaps two teachers within the schedule list"""
@@ -168,7 +158,6 @@ def swap_teachers(data_array: list, to_swap: str, target: str):
 
     return swapped_array
 
-
 def print_table(data_array: list, header: list):
     """prints 2d arrays are a table"""
     # finds longest characters
@@ -192,28 +181,3 @@ def print_table(data_array: list, header: list):
             print(col, end=((col_sep[i] + 1 - len(str(col))) * ' ') + '|') # nice margins between columns
 
         print()
-
-
-if __name__ == "__main__":
-    filepath = 'schedules/test.csv'
-    # retrieves csv from filepath string as a 2d array
-    with Schedule(filepath) as csv_file:
-        schedule = Schedule.csv_copy(csv_file)
-        header = schedule[0]
-
-        #find_substitutes(schedule[1:], 'Blacklock, D.')
-        #schedule.insert(0, header)
-
-        for i in schedule[38:43]:
-            print(i)
-
-        print()
-        for i in swap_teachers(schedule[38:43], 'birk, r.', 'Blacklock, D.'):
-            print(i)
-
-    
-    #with open(filepath, 'w', newline='') as csvfile:    
-    #    new_schedule = csv.writer(csvfile)
-    #    for row in schedule:
-    #        new_schedule.writerow(row)
-
