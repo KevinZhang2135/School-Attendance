@@ -188,7 +188,87 @@ class Menu:
         print()
 
     def swap_substitues(self):
-        pass
+        teacher_to_swap = None
+        teacher_name_error = 0
+        options = [teacher[0] for teacher in self.selected_substitues]
+
+        print('Which teacher would you like to swap: ')
+        for teacher, period in self.selected_substitues:
+            print(f'"{teacher.title()}" for period {period}')
+
+        print('go back')
+        print()
+
+        while teacher_to_swap not in options and teacher_to_swap != 'go back':
+            teacher_to_swap = input('Awaiting: ').strip().lower()
+            if teacher_to_swap != 'go back' and teacher_to_swap not in options:
+                teacher_name_error += 1
+
+                print('The teacher is not in substitues.')
+                if teacher_name_error >= 3:
+                    print(
+                        "Please use enter only the teacher's name within the quotes.")
+
+                print()
+
+        if teacher_to_swap == 'go back':
+            self.main_menu()
+
+        else:
+            new_teacher = None
+            teacher_name_error = 0
+
+            print(f'Which teacher would you like to swap {teacher_to_swap.title()} with  ( enter teacher name | see teacher list | go back ) ')
+
+            while new_teacher not in self.teachers and new_teacher != 'go back':
+                new_teacher = input('Awaiting: ').strip().lower()
+
+                if new_teacher == 'see teacher list':
+                    col_sep = 0  # gets longest teacher name
+                    for teacher in self.teachers:
+                        if col_sep < len(teacher):
+                            col_sep = len(teacher)
+
+                    col = 0
+                    for teacher in sorted(self.teachers):
+                        print(f'|{teacher.title()}', end=(
+                            col_sep - len(teacher) + 1)*' ')
+
+                        col += 1
+                        if col >= 8:
+                            col = 0
+                            print()
+
+                    print()
+                    print(
+                        'Selecting substitues for teacher ( enter teacher name | see teacher list | go back )')
+
+                elif new_teacher != 'go back' and new_teacher not in self.teachers:
+                    new_teacher = None
+                    teacher_name_error += 1
+
+                    print('The teacher is not in the schedule list.')
+                    if teacher_name_error >= 3:
+                        print(
+                            'Please use "see teacher list" to see the catalog of all teacher names.')
+
+                    print()
+
+            print()
+
+            if teacher_to_swap == 'go back':
+                self.main_menu()
+
+            else:
+                for teacher, period in self.selected_substitues:
+                    if teacher == teacher_to_swap:
+                        index = self.selected_substitues.index((teacher, period))
+                        self.selected_substitues[index] = (new_teacher, period)
+                        break
+
+                self.show_substitues()
+                print()
+
 
     def confirm_substitues(self):
         response = None
