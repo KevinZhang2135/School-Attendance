@@ -218,7 +218,8 @@ class Menu:
             new_teacher = None
             teacher_name_error = 0
 
-            print(f'Which teacher would you like to swap {teacher_to_swap.title()} with  ( enter teacher name | see teacher list | go back ) ')
+            print(
+                f'Which teacher would you like to swap {teacher_to_swap.title()} with  ( enter teacher name | see teacher list | go back ) ')
 
             while new_teacher not in self.teachers and new_teacher != 'go back':
                 new_teacher = input('Awaiting: ').strip().lower()
@@ -262,13 +263,13 @@ class Menu:
             else:
                 for teacher, period in self.selected_substitues:
                     if teacher == teacher_to_swap:
-                        index = self.selected_substitues.index((teacher, period))
+                        index = self.selected_substitues.index(
+                            (teacher, period))
                         self.selected_substitues[index] = (new_teacher, period)
                         break
 
                 self.show_substitues()
                 print()
-
 
     def confirm_substitues(self):
         response = None
