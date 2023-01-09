@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 
 export default class Counter extends Component {
+    componentDidUpdate(props, state) {
+        console.log(props, state);
+        
+    }
+
     getBadgeClasses() {
         let classes = "badge m-2";
         classes +=
