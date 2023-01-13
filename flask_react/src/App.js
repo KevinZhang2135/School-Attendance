@@ -1,12 +1,19 @@
 import React, { Component } from "react";
-import NavBar from "./components/navbar";
-import NavTabs from "./components/navtabs";
-import Substitues from "./components/substitues";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/home";
 import "./App.css";
 
 export default class App extends Component {
+    /*<NavBar />
+    <main className="container-fluid row">
+        <NavTabs />
+        <Substitues
+            teachers={this.state.substitues}
+            onDelete={this.handleDelete}
+        />
+    </main>*/
     state = {
-        substitues: [
+        teachers: [
             { id: 1, name: "Name1", period: 2 },
             { id: 2, name: "Name2", period: 2 },
             { id: 3, name: "Name3", period: 3 },
@@ -22,18 +29,17 @@ export default class App extends Component {
 
     render() {
         return (
-            <React.Fragment>
-                
-                <NavBar />
-                <main className="container-fluid row">
-                    <NavTabs />
-                    <Substitues
-                        teachers={this.state.substitues}
-                        onDelete={this.handleDelete}
-                    />
-                </main>
-
-            </React.Fragment>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <Home
+                            teachers={this.state.teachers}
+                            onDelete={this.handleDelete}
+                        />
+                    }
+                />
+            </Routes>
         );
     }
 }

@@ -1,22 +1,21 @@
 import React, { Component } from "react";
 import Substitues from "./substitues";
-import Banner from "./banner";
 import NavBar from "./navbar";
+import NavTabs from "./navtabs";
 
 export default class Home extends Component {
     render() {
+        const { teachers, handleDelete } = this.props;
         return (
             <React.Fragment>
-                <p>2323</p>
-                <Banner />
+                <NavBar />
                 <main className="container-fluid row">
-                    <NavBar />
+                    <NavTabs />
                     <Substitues
-                        teachers={this.state.substitues}
-                        onDelete={this.handleDelete}
+                        teachers={teachers}
+                        onDelete={handleDelete}
                     />
                 </main>
-
             </React.Fragment>
         );
     }

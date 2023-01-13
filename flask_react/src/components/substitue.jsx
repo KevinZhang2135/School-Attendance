@@ -5,7 +5,7 @@ class Substitue extends Component {
         const { teacher, onDelete } = this.props;
         return (
             <div className="align-items-center row">
-                <span className="align-middle text-start col">
+                <span className="align-middle text-start col-3">
                     {teacher.name}
                 </span>
 
