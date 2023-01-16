@@ -1,22 +1,20 @@
 import React, { Component } from "react";
 import Substitue from "./substitue";
 
-class Substitues extends Component {
+export default class Substitues extends Component {
     render() {
         const { teachers, onDelete } = this.props;
         return (
-            <div className="col-11">
-                <div className="align-items-center border-bottom border-primary border-3 row mb-2">                    
-                    <span className="align-start text-start col-3 m-2 me-0 ms-0">
+            <div className="col">
+                <div className="align-items-center border-bottom border-primary border-3 mb-2 row">
+                    <span className="align-start text-start m-2 me-0 ms-0 col-3">
                         Teacher
                     </span>
-                    <span className="align-start text-start col-9 m-2 me-0 ms-0">
+                    <span className="align-start text-start m-2 me-0 ms-0 col-3">
                         Period
                     </span>
-                    
                 </div>
 
-                
                 {teachers.map((teacher) => (
                     <Substitue
                         key={teacher.id}
@@ -24,10 +22,7 @@ class Substitues extends Component {
                         onDelete={onDelete}
                     />
                 ))}
-
             </div>
         );
     }
 }
-
-export default Substitues;

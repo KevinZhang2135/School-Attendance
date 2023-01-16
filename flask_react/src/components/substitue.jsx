@@ -1,31 +1,33 @@
 import React, { Component } from "react";
 
-class Substitue extends Component {
+export default class Substitue extends Component {
     render() {
         const { teacher, onDelete } = this.props;
         return (
             <div className="align-items-center row">
-                <span className="align-middle text-start col-3">
-                    {teacher.name}
-                </span>
+                <div className="align-middle text-start mt-1 mb-1 col-3">
+                    <span>{teacher.name}</span>
+                </div>
 
-                <span className="align-middle text-start col-3">
-                    {teacher.period}
-                </span>
+                <div className="align-middle text-start mt-1 mb-1 col-3">
+                    <span>{teacher.period}</span>
+                </div>
 
-                <button className="btn bg-success text-white m-2 col-3">
-                    Confirm
-                </button>
+                <div className="mt-1 mb-1 col-3">
+                    <button className="btn bg-success text-white container-fluid">
+                        Confirm
+                    </button>
+                </div>
 
-                <button
-                    className="btn bg-danger text-white m-2 col-3"
-                    onClick={() => onDelete(teacher.id)}
-                >
-                    Remove
-                </button>
+                <div className="mt-1 mb-1 col-3">
+                    <button
+                        className="btn bg-danger text-white container-fluid"
+                        onClick={() => onDelete(teacher.id)}
+                    >
+                        Remove
+                    </button>
+                </div>
             </div>
         );
     }
 }
-
-export default Substitue;
