@@ -5,8 +5,8 @@ class Substitues extends Component {
     render() {
         const { teachers, onDelete } = this.props;
         return (
-            <div className="col">
-                <div className="align-items-center border-bottom border-primary border-3 row mb-2 p-0">                    
+            <div className="col-11">
+                <div className="align-items-center border-bottom border-primary border-3 row mb-2">                    
                     <span className="align-start text-start col-3 m-2 me-0 ms-0">
                         Teacher
                     </span>
