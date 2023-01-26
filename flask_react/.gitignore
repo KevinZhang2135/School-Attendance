@@ -26,3 +26,4 @@ backend/schedules
 backend/env
 backend/__pycache__
  
+public/schedules/*

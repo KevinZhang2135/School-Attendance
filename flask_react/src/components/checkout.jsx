@@ -3,6 +3,7 @@ import Substitues from "./substitues";
 import NavBar from "./navbar";
 import NavTabs from "./navtabs";
 
+
 export default class Checkout extends Component {
     render() {
         const { teachers, onDelete } = this.props;
