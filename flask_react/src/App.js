@@ -6,10 +6,18 @@ import Checkout from "./components/checkout";
 import Papa from "papaparse";
 
 export default class App extends Component {
-    constructor(props) {
-        super(props);
-        const csv = [];
+    state = {
+        csv: [],
+        teachers: [
+            { id: 1, name: "Name1", period: 2 },
+            { id: 2, name: "Name2", period: 2 },
+            { id: 3, name: "Name3", period: 3 },
+            { id: 4, name: "Name4", period: 5 },
+        ],
+    };
 
+    componentDidMount() {
+        const csv = [];
         fetch("../schedules/test.csv")
             .then((response) => response.text())
             .then((row) => {
@@ -17,21 +25,12 @@ export default class App extends Component {
                     header: false,
                     complete: (row) => {
                         csv.push(...row.data);
+                        console.log(row);
                     },
                 });
+
+                this.setState({ csv });
             });
-
-        this.state = {
-            csv,
-            teachers: [
-                { id: 1, name: "Name1", period: 2 },
-                { id: 2, name: "Name2", period: 2 },
-                { id: 3, name: "Name3", period: 3 },
-                { id: 4, name: "Name4", period: 5 },
-            ],
-        };
-
-        console.log(this.state.csv);
     }
 
     handleDelete = (id) => {
@@ -41,6 +40,7 @@ export default class App extends Component {
     };
 
     render() {
+        console.log("render");
         return (
             <Routes>
                 <Route path="/" element={<Home csv={this.state.csv} />} />

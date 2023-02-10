@@ -9,7 +9,7 @@ export default class ScheduleTable extends Component {
     render() { 
         return (
             <ul>
-                {this.mapTable()};
+                {this.mapTable()}
             </ul>
 
         );
