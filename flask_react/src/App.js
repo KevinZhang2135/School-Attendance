@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/home";
 import Checkout from "./components/checkout";
+import Schedule from "./components/schedules";
 import Papa from "papaparse";
 
 export default class App extends Component {
@@ -25,7 +26,6 @@ export default class App extends Component {
                     header: false,
                     complete: (row) => {
                         csv.push(...row.data);
-                        console.log(row);
                     },
                 });
 
@@ -34,16 +34,14 @@ export default class App extends Component {
     }
 
     handleDelete = (id) => {
-        console.log("Called");
         const newSubList = this.state.teachers.filter((sub) => sub.id !== id);
         this.setState({ teachers: newSubList });
     };
 
     render() {
-        console.log("render");
         return (
             <Routes>
-                <Route path="/" element={<Home csv={this.state.csv} />} />
+                <Route path="/" element={<Home />} />
 
                 <Route
                     path="/checkout"
@@ -51,6 +49,15 @@ export default class App extends Component {
                         <Checkout
                             teachers={this.state.teachers}
                             onDelete={this.handleDelete}
+                        />
+                    }
+                />
+
+                <Route
+                    path="/schedules"
+                    element={
+                        <Schedule
+                        csv={this.state.csv}
                         />
                     }
                 />
