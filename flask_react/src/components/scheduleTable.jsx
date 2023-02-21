@@ -7,12 +7,11 @@ export default class ScheduleTable extends Component {
         for (const row of csv) {
             let data = row.slice(3, row.length - 6);
             data.push(...row.slice(6, row.length - 5));
-            console.log(data);
             
             let style = "align-items-center row";
-            if (csv.indexOf(row) & 1) {
-                style += " bg-light";
-            }
+            if (csv.indexOf(row) === 0) { style += " border-bottom border-primary border-3"; }
+            if (csv.indexOf(row) & 1) { style += " bg-light"; }
+
             table.push(
                 <div className={style} key={row}>
                     {data.map((item, index) => (
