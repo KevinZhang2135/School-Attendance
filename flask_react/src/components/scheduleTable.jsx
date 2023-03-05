@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 
 export default class ScheduleTable extends Component {
+    addButton = (condition) => {
+        if (condition) {
+            return (
+                <div className="col-1 mt-2 mb-2">
+                    <button className="btn bg-success text-white container-fluid">
+                        Confirm
+                    </button>
+                </div>
+            );
+        }
+
+    }
+
     mapTable = () => {
         const { csv } = this.props;
         const table = [];
@@ -16,12 +29,14 @@ export default class ScheduleTable extends Component {
                 <div className={style} key={row}>
                     {data.map((item, index) => (
                         <span
-                            className="align-middle text-start mt-1 mb-1 col-1"
+                            className="align-middle text-start mt-2 mb-2 col-1"
                             key={item + index}
                         >
                             {item}
                         </span>
                     ))}
+
+                    {this.addButton(csv.indexOf(row) !== 0)}
                 </div>
             );
         }
