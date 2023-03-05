@@ -5,7 +5,7 @@ import NavTabs from "./navtabs";
 
 
 export default class Checkout extends Component {
-    render() {
+    render = () => {
         const { teachers, onDelete } = this.props;
         return (
             <React.Fragment>

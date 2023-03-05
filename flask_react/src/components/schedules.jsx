@@ -4,7 +4,7 @@ import NavTabs from "./navtabs";
 import ScheduleTable from "./scheduleTable";
 
 export default class Schedule extends Component {
-    render() {
+    render = () => {
         const { csv } = this.props;
         return (
             <React.Fragment>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Substitue from "./substitue";
 
 export default class Substitues extends Component {
-    render() {
+    render = () => {
         const { teachers, onDelete } = this.props;
         return (
             <div className="col">

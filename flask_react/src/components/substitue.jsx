@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 export default class Substitue extends Component {
-    render() {
+    render = () => {
         const { teacher, onDelete } = this.props;
         return (
             <div className="align-items-center row">

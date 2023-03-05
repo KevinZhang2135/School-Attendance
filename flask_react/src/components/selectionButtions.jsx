@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 export default class SelectionButton extends Component {
-    render() {
+    render = () => {
         return (
             <div className="col">
                 <div className="card mt-1 mb-1 me-1 p-3 float-start" style={{ width: "30%" }}>

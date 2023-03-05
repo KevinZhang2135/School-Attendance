@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 export default class ScheduleTable extends Component {
-    mapTable() {
+    mapTable = () => {
         const { csv } = this.props;
         const table = [];
         for (const row of csv) {
@@ -29,7 +29,7 @@ export default class ScheduleTable extends Component {
         return table;
     }
 
-    render() {
+    render = () => {
         return <div className="col">{this.mapTable()}</div>;
     }
 }
