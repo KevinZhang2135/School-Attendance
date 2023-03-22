@@ -9,7 +9,7 @@ import Papa from "papaparse";
 export default class App extends Component {
     state = {
         csv: [],
-        teachers: [
+        substitues: [
             { id: 1, name: "Name1", period: 2 },
             { id: 2, name: "Name2", period: 2 },
             { id: 3, name: "Name3", period: 3 },
@@ -17,7 +17,12 @@ export default class App extends Component {
         ],
     };
 
-    componentDidMount() {
+    handleSelect = (event, id) => {
+        const substitue = this.state.substitues.filter((sub) => sub.id === id);
+        console.log(substitue)
+    }
+
+    componentDidMount = () => {
         const csv = [];
         fetch("../schedules/test.csv")
             .then((response) => response.text())
@@ -34,8 +39,8 @@ export default class App extends Component {
     }
 
     handleDelete = (id) => {
-        const newSubList = this.state.teachers.filter((sub) => sub.id !== id);
-        this.setState({ teachers: newSubList });
+        const newSubList = this.state.substitues.filter((sub) => sub.id !== id);
+        this.setState({ substitues: newSubList });
     };
 
     render() {
@@ -47,8 +52,9 @@ export default class App extends Component {
                     path="/checkout"
                     element={
                         <Checkout
-                            teachers={this.state.teachers}
+                            substitues={this.state.substitues}
                             onDelete={this.handleDelete}
+                            onSelect={this.handleSelect}
                         />
                     }
                 />

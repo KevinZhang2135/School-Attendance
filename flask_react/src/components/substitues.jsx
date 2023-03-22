@@ -3,7 +3,7 @@ import Substitue from "./substitue";
 
 export default class Substitues extends Component {
     render = () => {
-        const { teachers, onDelete } = this.props;
+        const { substitues, onDelete, onSelect } = this.props;
         return (
             <div className="col">
                 <div className="align-items-center border-bottom border-primary border-3 mb-2 row">
@@ -15,11 +15,12 @@ export default class Substitues extends Component {
                     </span>
                 </div>
 
-                {teachers.map((teacher) => (
+                {substitues.map((substitue) => (
                     <Substitue
-                        key={teacher.id}
-                        teacher={teacher}
+                        key={substitue.id}
+                        substitue={substitue}
                         onDelete={onDelete}
+                        onSelect={onSelect}
                     />
                 ))}
             </div>
