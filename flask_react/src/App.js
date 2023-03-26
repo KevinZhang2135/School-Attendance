@@ -10,17 +10,20 @@ export default class App extends Component {
     state = {
         csv: [],
         substitues: [
-            { id: 1, name: "Name1", period: 2 },
-            { id: 2, name: "Name2", period: 2 },
-            { id: 3, name: "Name3", period: 3 },
-            { id: 4, name: "Name4", period: 5 },
+            { id: 1, name: "Sub1", teacherSubbing: "Teacher1", period: 2 },
+            { id: 2, name: "Sub2", teacherSubbing: "Teacher2", period: 2 },
+            { id: 3, name: "Sub3", teacherSubbing: "Teacher3", period: 3 },
+            { id: 4, name: "Sub4", teacherSubbing: "Teacher4", period: 5 },
         ],
     };
 
-    handleSelect = (event, id) => {
-        const substitue = this.state.substitues.filter((sub) => sub.id === id);
-        console.log(substitue)
-    }
+    handleSelect = (event, sub) => {
+        const newSubList = this.state.substitues;
+        const index = newSubList.indexOf(sub);
+        newSubList[index].period = event.target.value;
+
+        this.setState({ substitues: newSubList });
+    };
 
     componentDidMount = () => {
         const csv = [];
@@ -36,7 +39,7 @@ export default class App extends Component {
 
                 this.setState({ csv });
             });
-    }
+    };
 
     handleDelete = (id) => {
         const newSubList = this.state.substitues.filter((sub) => sub.id !== id);
@@ -61,11 +64,7 @@ export default class App extends Component {
 
                 <Route
                     path="/schedules"
-                    element={
-                        <Schedule
-                        csv={this.state.csv}
-                        />
-                    }
+                    element={<Schedule csv={this.state.csv} />}
                 />
             </Routes>
         );

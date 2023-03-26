@@ -6,8 +6,9 @@ export default class ScheduleTable extends Component {
         const { csv } = this.props;
         const table = [];
         for (const row of csv) {
-            let data = row.slice(3, row.length - 6);
-            data.push(...row.slice(6, row.length - 5));
+            let data = row.slice(3, 4);
+            data.push(...row.slice(6, 10));
+            data.push(...row.slice(13, 14));
             table.push(
                 <ScheduleRow key={row} data={data} rowNum={csv.indexOf(row)} />
             );

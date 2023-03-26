@@ -8,9 +8,12 @@ export default class Substitues extends Component {
             <div className="col">
                 <div className="align-items-center border-bottom border-primary border-3 mb-2 row">
                     <span className="align-start text-start m-2 me-0 ms-0 col-3">
-                        Teacher
+                        Substitue
                     </span>
                     <span className="align-start text-start m-2 me-0 ms-0 col-3">
+                        Teacher
+                    </span>
+                    <span className="align-start text-start m-2 me-0 ms-0 col-1">
                         Period
                     </span>
                 </div>
