@@ -13,16 +13,20 @@ export default class App extends Component {
             { id: 1, name: "Sub1", teacherSubbing: "Teacher1", period: 2 },
             { id: 2, name: "Sub2", teacherSubbing: "Teacher2", period: 2 },
             { id: 3, name: "Sub3", teacherSubbing: "Teacher3", period: 3 },
-            { id: 4, name: "Sub4", teacherSubbing: "Teacher4", period: 5 },
+            { id: 4, name: "Sub4", teacherSubbing: "Teacher4", period: 7 },
+            { id: 5, name: "Sub5", teacherSubbing: "Teacher5", period: 6 },
         ],
     };
 
     handleSelect = (event, sub) => {
-        const newSubList = this.state.substitues;
-        const index = newSubList.indexOf(sub);
-        newSubList[index].period = event.target.value;
+        if (event !== null) {
+            const newSubList = this.state.substitues;
+            const index = newSubList.indexOf(sub);
+            newSubList[index].period = event.value;
 
-        this.setState({ substitues: newSubList });
+            this.setState({ substitues: newSubList });
+            console.log(this.state);
+        }
     };
 
     componentDidMount = () => {

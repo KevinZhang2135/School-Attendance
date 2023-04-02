@@ -1,8 +1,21 @@
 import React, { Component } from "react";
+import Select from "react-select";
 
 export default class Substitue extends Component {
     render = () => {
         const { substitue, onDelete, onSelect } = this.props;
+        const periodOptions = [
+            { value: 1, label: 1 },
+            { value: 2, label: 2 },
+            { value: 3, label: 3 },
+            { value: 4, label: 4 },
+            { value: 6, label: 6 },
+            { value: 7, label: 7 },
+            { value: 8, label: 8 },
+        ];
+
+        const periodIndex = periodOptions.findIndex(period => period.label === substitue.period);
+
         return (
             <div className="align-items-center row">
                 <div className="align-middle text-start mt-1 mb-1 col-3">
@@ -14,24 +27,24 @@ export default class Substitue extends Component {
                 </div>
 
                 <div className="align-middle text-start mt-1 mb-1 col-1">
-                    <select
+                    <Select
+                        className="basic-single"
+                        classNamePrefix="select"
+                        defaultValue={periodOptions[periodIndex]}
+                        isDisabled={false}
+                        isLoading={false}
+                        isClearable={true}
+                        isRtl={false}
+                        isSearchable={true}
+                        name="periods"
+                        options={periodOptions}
                         onChange={(e) => {
                             onSelect(e, substitue);
                         }}
-                        className="form-select"
-                    >
-                        <option defaultValue>{substitue.period}</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                    </select>
+                    />
                 </div>
+
                 <div className="mt-1 mb-1 col-1" />
-            
 
                 <div className="mt-1 mb-1 col-2">
                     <button className="btn bg-success text-white container-fluid">
