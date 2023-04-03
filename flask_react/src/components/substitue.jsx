@@ -3,7 +3,7 @@ import Select from "react-select";
 
 export default class Substitue extends Component {
     render = () => {
-        const { substitue, onDelete, onSelect } = this.props;
+        const { substitue, onDelete, onPeriodChange } = this.props;
         const periodOptions = [
             { value: 1, label: 1 },
             { value: 2, label: 2 },
@@ -33,13 +33,13 @@ export default class Substitue extends Component {
                         defaultValue={periodOptions[periodIndex]}
                         isDisabled={false}
                         isLoading={false}
-                        isClearable={true}
+                        isClearable={false}
                         isRtl={false}
                         isSearchable={true}
                         name="periods"
                         options={periodOptions}
                         onChange={(e) => {
-                            onSelect(e, substitue);
+                            onPeriodChange(e, substitue);
                         }}
                     />
                 </div>

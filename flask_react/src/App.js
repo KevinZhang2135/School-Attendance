@@ -3,12 +3,13 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/home";
 import Checkout from "./components/checkout";
-import Schedule from "./components/schedules";
+import Schedule from "./components/schedule";
 import Papa from "papaparse";
 
 export default class App extends Component {
     state = {
         csv: [],
+        availableSubs: [],
         substitues: [
             { id: 1, name: "Sub1", teacherSubbing: "Teacher1", period: 2 },
             { id: 2, name: "Sub2", teacherSubbing: "Teacher2", period: 2 },
@@ -18,20 +19,16 @@ export default class App extends Component {
         ],
     };
 
-    handleSelect = (event, sub) => {
-        if (event !== null) {
-            const newSubList = this.state.substitues;
-            const index = newSubList.indexOf(sub);
-            newSubList[index].period = event.value;
-
-            this.setState({ substitues: newSubList });
-            console.log(this.state);
-        }
+    componentDidMount = async () => {
+        await this.retriveCSV();
+        await this.getAvailableSubs();
     };
 
-    componentDidMount = () => {
+    retriveCSV = async () => {
         const csv = [];
-        fetch("../schedules/test.csv")
+
+        // retrieves data from csvs
+        await fetch("../schedules/test.csv")
             .then((response) => response.text())
             .then((row) => {
                 Papa.parse(row, {
@@ -43,6 +40,32 @@ export default class App extends Component {
 
                 this.setState({ csv });
             });
+    };
+
+    getAvailableSubs = () => {
+        let availableSubs = this.state.csv.map((element) => element[3]); // gets teacher names
+
+        availableSubs = availableSubs.filter((element, index, array) => {
+            return array.indexOf(element) === index; // filters elements only for the first occurrence
+        });
+
+        availableSubs.shift();
+        availableSubs = availableSubs.map((element) => {
+            return { value: element, label: element }; // maps as value-label pairs
+        });
+
+        this.setState({ availableSubs });
+    };
+
+    handlePeriodChange = (event, sub) => {
+        // updates the periods after changing in checkout
+        if (event !== null) {
+            const newSubList = this.state.substitues;
+            const index = newSubList.indexOf(sub);
+            newSubList[index].period = event.value;
+
+            this.setState({ substitues: newSubList });
+        }
     };
 
     handleDelete = (id) => {
@@ -61,14 +84,19 @@ export default class App extends Component {
                         <Checkout
                             substitues={this.state.substitues}
                             onDelete={this.handleDelete}
-                            onSelect={this.handleSelect}
+                            onPeriodChange={this.handlePeriodChange}
                         />
                     }
                 />
 
                 <Route
                     path="/schedules"
-                    element={<Schedule csv={this.state.csv} />}
+                    element={
+                        <Schedule
+                            csv={this.state.csv}
+                            availableSubs={this.state.availableSubs}
+                        />
+                    }
                 />
             </Routes>
         );

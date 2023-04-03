@@ -6,7 +6,7 @@ import NavTabs from "./navtabs";
 
 export default class Checkout extends Component {
     render = () => {
-        const { substitues, onDelete, onSelect } = this.props;
+        const { substitues, onDelete, onPeriodChange } = this.props;
         return (
             <React.Fragment>
                 <NavBar />
@@ -15,7 +15,7 @@ export default class Checkout extends Component {
                     <Substitues
                         substitues={substitues}
                         onDelete={onDelete}
-                        onSelect={onSelect}
+                        onPeriodChange={onPeriodChange}
                     />
                 </main>
             </React.Fragment>

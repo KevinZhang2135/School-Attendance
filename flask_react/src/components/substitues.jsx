@@ -2,8 +2,22 @@ import React, { Component } from "react";
 import Substitue from "./substitue";
 
 export default class Substitues extends Component {
+    renderSubstitues = () => {
+        const { substitues, onDelete, onPeriodChange } = this.props;
+        if (substitues.length === 0) {
+            return <span className="align-items-center mt-1 mb-1">Nothing to show</span>;
+        }
+
+        return substitues.map((substitue) => (
+            <Substitue
+                key={substitue.id}
+                substitue={substitue}
+                onDelete={onDelete}
+                onPeriodChange={onPeriodChange}
+            />
+        ));
+    };
     render = () => {
-        const { substitues, onDelete, onSelect } = this.props;
         return (
             <div className="col">
                 <div className="align-items-center border-bottom border-primary border-3 mb-2 row">
@@ -18,15 +32,8 @@ export default class Substitues extends Component {
                     </span>
                 </div>
 
-                {substitues.map((substitue) => (
-                    <Substitue
-                        key={substitue.id}
-                        substitue={substitue}
-                        onDelete={onDelete}
-                        onSelect={onSelect}
-                    />
-                ))}
+                {this.renderSubstitues()}
             </div>
         );
-    }
+    };
 }

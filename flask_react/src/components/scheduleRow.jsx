@@ -1,5 +1,11 @@
 import React, { Component } from "react";
+import Select from "react-select";
+
 export default class ScheduleRow extends Component {
+    state = {
+        selectedSub: null,
+    }
+
     addButton = (rowNum) => {
         if (rowNum !== 0) {
             return (
@@ -7,6 +13,31 @@ export default class ScheduleRow extends Component {
                     <button className="btn bg-success text-white container-fluid">
                         Confirm
                     </button>
+                </div>
+            );
+        }
+    };
+
+    addSubSelection = (rowNum) => {
+        const { availableSubs } = this.props;
+        const selectedSubIndex = availableSubs.findIndex(period => period.label === this.state.selectedSub);
+
+        if (rowNum !== 0) {
+            return (
+                <div className="align-middle text-start mt-1 mb-1 col-2">
+                    <Select
+                        className="basic-single"
+                        classNamePrefix="select"
+                        defaultValue={availableSubs[selectedSubIndex]}
+                        isDisabled={false}
+                        isLoading={false}
+                        isClearable={true}
+                        isRtl={false}
+                        isSearchable={true}
+                        name="periods"
+                        options={availableSubs}
+                        onChange={(e) => {}}  
+                    />
                 </div>
             );
         }
@@ -34,7 +65,9 @@ export default class ScheduleRow extends Component {
                     </span>
                 ))}
 
+                {this.addSubSelection(rowNum)}  
                 {this.addButton(rowNum)}
+                
             </div>
         );
     }
