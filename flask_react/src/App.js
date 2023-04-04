@@ -1,21 +1,24 @@
 import React, { Component } from "react";
 import { Routes, Route } from "react-router-dom";
+import Papa from "papaparse";
+import uuid from "react-uuid";
 
 import Home from "./components/home";
 import Checkout from "./components/checkout";
 import Schedule from "./components/schedule";
-import Papa from "papaparse";
+
+
 
 export default class App extends Component {
     state = {
         csv: [],
         availableSubs: [],
         substitues: [
-            { id: 1, name: "Sub1", teacherSubbing: "Teacher1", period: 2 },
-            { id: 2, name: "Sub2", teacherSubbing: "Teacher2", period: 2 },
-            { id: 3, name: "Sub3", teacherSubbing: "Teacher3", period: 3 },
-            { id: 4, name: "Sub4", teacherSubbing: "Teacher4", period: 7 },
-            { id: 5, name: "Sub5", teacherSubbing: "Teacher5", period: 6 },
+            { id: 1, sub: "Sub1", teacher: "Teacher1", period: 2 },
+            { id: 2, sub: "Sub2", teacher: "Teacher2", period: 2 },
+            { id: 3, sub: "Sub3", teacher: "Teacher3", period: 3 },
+            { id: 4, sub: "Sub4", teacher: "Teacher4", period: 7 },
+            { id: 5, sub: "Sub5", teacher: "Teacher5", period: 6 },
         ],
     };
 
@@ -73,6 +76,14 @@ export default class App extends Component {
         this.setState({ substitues: newSubList });
     };
 
+    addSubstitue = (sub, teacher, period) => {
+        const newSubList = this.state.substitues;
+        newSubList.push({ id: uuid(), sub, teacher, period: parseInt(period) });
+
+        this.setState({ substitues: newSubList });
+        
+    };
+
     render() {
         return (
             <Routes>
@@ -95,6 +106,7 @@ export default class App extends Component {
                         <Schedule
                             csv={this.state.csv}
                             availableSubs={this.state.availableSubs}
+                            onClick={this.addSubstitue}
                         />
                     }
                 />

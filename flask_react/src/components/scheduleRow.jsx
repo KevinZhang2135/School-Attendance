@@ -4,13 +4,18 @@ import Select from "react-select";
 export default class ScheduleRow extends Component {
     state = {
         selectedSub: null,
-    }
+    };
 
     addButton = (rowNum) => {
         if (rowNum !== 0) {
             return (
                 <div className="col-1 mt-2 mb-2">
-                    <button className="btn bg-success text-white container-fluid">
+                    <button
+                        className="btn bg-success text-white container-fluid"
+                        onClick={() => {
+                            this.addSubstitue();
+                        }}
+                    >
                         Confirm
                     </button>
                 </div>
@@ -20,7 +25,9 @@ export default class ScheduleRow extends Component {
 
     addSubSelection = (rowNum) => {
         const { availableSubs } = this.props;
-        const selectedSubIndex = availableSubs.findIndex(period => period.label === this.state.selectedSub);
+        const selectedSubIndex = availableSubs.findIndex(
+            (period) => period.label === this.state.selectedSub
+        );
 
         if (rowNum !== 0) {
             return (
@@ -36,14 +43,31 @@ export default class ScheduleRow extends Component {
                         isSearchable={true}
                         name="periods"
                         options={availableSubs}
-                        onChange={(e) => {}}  
+                        onChange={(e) => {
+                            this.updateSelectedSub(e);
+                        }}
                     />
                 </div>
             );
         }
     };
 
-    render() {
+    addSubstitue = () => {
+        const { data, onClick } = this.props;
+        if (this.state.selectedSub !== null) {
+            console.log(this.state.selectedSub);
+            onClick(this.state.selectedSub, data[0], data[4]);
+            this.setState({ selectedSub: null });
+        }
+    };
+
+    updateSelectedSub = (event) => {
+        if (event != null) {
+            this.setState({ selectedSub: event.value });
+        }
+    };
+
+    render = () => {
         let { data, rowNum } = this.props;
         let style = "align-items-center row";
         if (rowNum === 0) {
@@ -65,10 +89,9 @@ export default class ScheduleRow extends Component {
                     </span>
                 ))}
 
-                {this.addSubSelection(rowNum)}  
+                {this.addSubSelection(rowNum)}
                 {this.addButton(rowNum)}
-                
             </div>
         );
-    }
+    };
 }

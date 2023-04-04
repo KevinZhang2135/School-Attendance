@@ -10,13 +10,14 @@ export default class Substitues extends Component {
 
         return substitues.map((substitue) => (
             <Substitue
-                key={substitue.id}
+                key={substitue}
                 substitue={substitue}
                 onDelete={onDelete}
                 onPeriodChange={onPeriodChange}
             />
         ));
     };
+
     render = () => {
         return (
             <div className="col">

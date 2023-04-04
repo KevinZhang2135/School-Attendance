@@ -2,8 +2,17 @@ import React, { Component } from "react";
 import ScheduleRow from "./scheduleRow";
 
 export default class ScheduleTable extends Component {
+    loadSpinner = () => {
+        return (
+            <React.Fragment>
+                <div className="spinner-border text-primary m-2 me-0 ms-0" role="status" />
+                <span>Loading...</span>
+            </React.Fragment>
+        );
+    };
+
     mapTable = () => {
-        const { csv, availableSubs } = this.props;
+        const { csv, availableSubs, onClick } = this.props;
         const table = [];
         for (const row of csv) {
             let data = row.slice(3, 4);
@@ -15,6 +24,7 @@ export default class ScheduleTable extends Component {
                     data={data}
                     availableSubs={availableSubs}
                     rowNum={csv.indexOf(row)}
+                    onClick={onClick}
                 />
             );
         }
@@ -23,9 +33,10 @@ export default class ScheduleTable extends Component {
     };
 
     render = () => {
+        const { csv } = this.props;
         return (
             <div className="col">
-                {this.mapTable()}
+                {csv.length === 0 ? this.loadSpinner() : this.mapTable()}
             </div>
         );
     };

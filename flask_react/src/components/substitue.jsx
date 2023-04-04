@@ -19,11 +19,11 @@ export default class Substitue extends Component {
         return (
             <div className="align-items-center row">
                 <div className="align-middle text-start mt-1 mb-1 col-3">
-                    <span>{substitue.name}</span>
+                    <span>{substitue.sub}</span>
                 </div>
 
                 <div className="align-middle text-start mt-1 mb-1 col-3">
-                    <span>{substitue.teacherSubbing}</span>
+                    <span>{substitue.teacher}</span>
                 </div>
 
                 <div className="align-middle text-start mt-1 mb-1 col-1">
