@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Routes, Route } from "react-router-dom";
 import Papa from "papaparse";
-import uuid from "react-uuid";
+import { v4 as uuid } from 'uuid';
 
 import Home from "./components/home";
 import Checkout from "./components/checkout";

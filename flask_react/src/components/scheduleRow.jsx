@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Select from "react-select";
+import { v4 as uuid } from 'uuid';
 
 export default class ScheduleRow extends Component {
     state = {
@@ -33,6 +34,7 @@ export default class ScheduleRow extends Component {
             return (
                 <div className="align-middle text-start mt-1 mb-1 col-2">
                     <Select
+                        key={uuid()}
                         className="basic-single"
                         classNamePrefix="select"
                         defaultValue={availableSubs[selectedSubIndex]}
@@ -52,12 +54,11 @@ export default class ScheduleRow extends Component {
         }
     };
 
-    addSubstitue = () => {
+    addSubstitue = async () => {
         const { data, onClick } = this.props;
         if (this.state.selectedSub !== null) {
-            console.log(this.state.selectedSub);
             onClick(this.state.selectedSub, data[0], data[4]);
-            this.setState({ selectedSub: null });
+            await this.setState({ selectedSub: null });
         }
     };
 

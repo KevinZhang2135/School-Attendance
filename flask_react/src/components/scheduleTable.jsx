@@ -22,7 +22,7 @@ export default class ScheduleTable extends Component {
                 <ScheduleRow
                     key={row}
                     data={data}
-                    availableSubs={availableSubs}
+                    availableSubs={availableSubs.filter(sub => sub.label !== data[0])}
                     rowNum={csv.indexOf(row)}
                     onClick={onClick}
                 />

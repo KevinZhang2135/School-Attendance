@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Substitue from "./substitue";
+import { v4 as uuid } from 'uuid';
 
 export default class Substitues extends Component {
     renderSubstitues = () => {
@@ -8,9 +9,10 @@ export default class Substitues extends Component {
             return <span className="align-items-center mt-1 mb-1">Nothing to show</span>;
         }
 
+        console.log(substitues[0])
         return substitues.map((substitue) => (
             <Substitue
-                key={substitue}
+                key={uuid()}
                 substitue={substitue}
                 onDelete={onDelete}
                 onPeriodChange={onPeriodChange}
