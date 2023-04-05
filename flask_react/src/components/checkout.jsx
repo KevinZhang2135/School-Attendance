@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Substitues from "./substitues";
+import Substitues from "./checkoutTable";
 import NavBar from "./navbar";
 import NavTabs from "./navtabs";
 

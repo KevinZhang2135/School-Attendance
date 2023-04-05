@@ -73,6 +73,7 @@ export default class ScheduleRow extends Component {
         let style = "align-items-center row";
         if (rowNum === 0) {
             style += " border-bottom border-primary border-3";
+            data.push("Substitue Name")
         }
 
         if (rowNum & 1) {

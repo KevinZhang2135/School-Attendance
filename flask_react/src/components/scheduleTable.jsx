@@ -12,6 +12,7 @@ export default class ScheduleTable extends Component {
     };
 
     mapTable = () => {
+        
         const { csv, availableSubs, onClick } = this.props;
         const table = [];
         for (const row of csv) {

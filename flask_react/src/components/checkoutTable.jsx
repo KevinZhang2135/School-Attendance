@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Substitue from "./substitue";
+import Substitue from "./checkoutRow";
 import { v4 as uuid } from 'uuid';
 
 export default class Substitues extends Component {
