@@ -9,7 +9,6 @@ export default class Substitues extends Component {
             return <span className="align-items-center mt-1 mb-1">Nothing to show</span>;
         }
 
-        console.log(substitues[0])
         return substitues.map((substitue) => (
             <Substitue
                 key={uuid()}

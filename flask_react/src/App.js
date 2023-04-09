@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { Routes, Route } from "react-router-dom";
-import Papa from "papaparse";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 import Home from "./components/home";
 import Checkout from "./components/checkout";
 import Schedule from "./components/schedule";
-
-
 
 export default class App extends Component {
     state = {
@@ -23,26 +20,21 @@ export default class App extends Component {
     };
 
     componentDidMount = async () => {
-        await this.retriveCSV();
+        await this.getCSV();
         await this.getAvailableSubs();
     };
 
-    retriveCSV = async () => {
-        const csv = [];
+    getCSV = async () => {
+        // retrieves data from csv
+        const csv = await fetch("http://127.0.0.1:5000/csv", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
 
-        // retrieves data from csvs
-        await fetch("../schedules/test.csv")
-            .then((response) => response.text())
-            .then((row) => {
-                Papa.parse(row, {
-                    header: false,
-                    complete: (row) => {
-                        csv.push(...row.data);
-                    },
-                });
-
-                this.setState({ csv });
-            });
+        this.setState({ csv })
     };
 
     getAvailableSubs = () => {
@@ -81,7 +73,6 @@ export default class App extends Component {
         newSubList.push({ id: uuid(), sub, teacher, period: parseInt(period) });
 
         this.setState({ substitues: newSubList });
-        
     };
 
     render() {
