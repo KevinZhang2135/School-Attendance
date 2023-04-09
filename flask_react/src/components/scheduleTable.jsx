@@ -15,7 +15,7 @@ export default class ScheduleTable extends Component {
     };
 
     mapTable = () => {
-        const { csv, availableSubs, onClick } = this.props;
+        const { csv, availableSubs, addSubstitue } = this.props;
         const table = [];
         for (const row of csv) {
             let data = row.slice(3, 4);
@@ -29,7 +29,7 @@ export default class ScheduleTable extends Component {
                         (sub) => sub.label !== data[0]
                     )}
                     rowNum={csv.indexOf(row)}
-                    onClick={onClick}
+                    addSubstitue={addSubstitue}
                 />
             );
         }

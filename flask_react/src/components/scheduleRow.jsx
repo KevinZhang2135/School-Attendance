@@ -55,9 +55,9 @@ export default class ScheduleRow extends Component {
     };
 
     addSubstitue = async () => {
-        const { data, onClick } = this.props;
+        const { data, addSubstitue } = this.props;
         if (this.state.selectedSub !== null) {
-            onClick(this.state.selectedSub, data[0], data[4]);
+            addSubstitue(this.state.selectedSub, data[0], data[4]);
             await this.setState({ selectedSub: null });
         }
     };

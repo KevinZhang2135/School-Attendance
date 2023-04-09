@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 export default class NavTabs extends Component {
     render = () => {
+        const { refresh } = this.props;
         return (
             <div className="bg-body-tertiary p-0 col-1">
-                <Link to=".." className="btn container-fluid rounded-0">
+                <a href="./index.html" onClick={() => refresh("")} className="btn container-fluid rounded-0">
                     Home
-                </Link>
-                <Link to="/checkout" className="btn container-fluid rounded-0">
+                </a>
+                <a href="./index.html#checkout" onClick={() => refresh("checkout")} className="btn container-fluid rounded-0">
                     Checkout
-                </Link>
-                <Link to="/schedules" className="btn container-fluid rounded-0">
+                </a>
+                <a href="./index.html#schedules" onClick={() => refresh("schedules")} className="btn container-fluid rounded-0">
                     Schedules
-                </Link>
+                </a>
             </div>
         );
     };

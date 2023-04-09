@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Routes, Route } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 
 import Home from "./components/home";
@@ -8,6 +7,7 @@ import Schedule from "./components/schedule";
 
 export default class App extends Component {
     state = {
+        anchor: null,
         csv: [],
         availableSubs: [],
         substitues: [
@@ -22,6 +22,7 @@ export default class App extends Component {
     componentDidMount = async () => {
         await this.getCSV();
         await this.getAvailableSubs();
+        this.setState({ anchor: this.getAnchor()});
     };
 
     getCSV = async () => {
@@ -76,34 +77,41 @@ export default class App extends Component {
         this.setState({ substitues: newSubList });
     };
 
+    getAnchor = () => {
+        return document.URL.split("#").length > 1
+            ? document.URL.split("#")[1]
+            : null;
+    };
+
+    handleAnchorChange = (anchor) => {
+        this.setState({ anchor });
+    };
+
     render = () => {
-        console.log(this.state.csv);
         return (
-            <Routes>
-                <Route path="/" element={<Home />} />
+            <React.Fragment>
+                {this.state.anchor === null && (
+                    <Home refresh={this.handleAnchorChange} />
+                )}
 
-                <Route
-                    path="/checkout"
-                    element={
-                        <Checkout
-                            substitues={this.state.substitues}
-                            onDelete={this.handleDelete}
-                            onPeriodChange={this.handlePeriodChange}
-                        />
-                    }
-                />
+                {this.state.anchor === "checkout" && (
+                    <Checkout
+                        substitues={this.state.substitues}
+                        onDelete={this.handleDelete}
+                        onPeriodChange={this.handlePeriodChange}
+                        refresh={this.handleAnchorChange}
+                    />
+                )}
 
-                <Route
-                    path="/schedules"
-                    element={
-                        <Schedule
-                            csv={this.state.csv}
-                            availableSubs={this.state.availableSubs}
-                            onClick={this.addSubstitue}
-                        />
-                    }
-                />
-            </Routes>
+                {this.state.anchor === "schedules" && (
+                    <Schedule
+                        csv={this.state.csv}
+                        availableSubs={this.state.availableSubs}
+                        addSubstitue={this.addSubstitue}
+                        refresh={this.handleAnchorChange}
+                    />
+                )}
+            </React.Fragment>
         );
-    }
+    };
 }
