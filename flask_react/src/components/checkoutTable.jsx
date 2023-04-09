@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import Substitue from "./checkoutRow";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 export default class Substitues extends Component {
     renderSubstitues = () => {
         const { substitues, onDelete, onPeriodChange } = this.props;
         if (substitues.length === 0) {
-            return <span className="align-items-center mt-1 mb-1">Nothing to show</span>;
+            return (
+                <span className="align-items-center mt-1 mb-1">
+                    Nothing to show
+                </span>
+            );
         }
 
         return substitues.map((substitue) => (

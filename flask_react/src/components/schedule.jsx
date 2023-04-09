@@ -11,9 +11,13 @@ export default class Schedule extends Component {
                 <NavBar />
                 <main className="container-fluid p-0 m-0 row">
                     <NavTabs />
-                    <ScheduleTable csv={csv} availableSubs={availableSubs} onClick={onClick} />
+                    <ScheduleTable
+                        csv={csv}
+                        availableSubs={availableSubs}
+                        onClick={onClick}
+                    />
                 </main>
             </React.Fragment>
         );
-    }
+    };
 }

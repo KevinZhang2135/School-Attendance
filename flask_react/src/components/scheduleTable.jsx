@@ -5,14 +5,16 @@ export default class ScheduleTable extends Component {
     loadSpinner = () => {
         return (
             <React.Fragment>
-                <div className="spinner-border text-primary m-2 me-0 ms-0" role="status" />
+                <div
+                    className="spinner-border text-primary m-2 me-0 ms-0"
+                    role="status"
+                />
                 <span>Loading...</span>
             </React.Fragment>
         );
     };
 
     mapTable = () => {
-        
         const { csv, availableSubs, onClick } = this.props;
         const table = [];
         for (const row of csv) {
@@ -23,7 +25,9 @@ export default class ScheduleTable extends Component {
                 <ScheduleRow
                     key={row}
                     data={data}
-                    availableSubs={availableSubs.filter(sub => sub.label !== data[0])}
+                    availableSubs={availableSubs.filter(
+                        (sub) => sub.label !== data[0]
+                    )}
                     rowNum={csv.indexOf(row)}
                     onClick={onClick}
                 />

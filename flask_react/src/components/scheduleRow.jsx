@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Select from "react-select";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 export default class ScheduleRow extends Component {
     state = {
@@ -73,7 +73,7 @@ export default class ScheduleRow extends Component {
         let style = "align-items-center row";
         if (rowNum === 0) {
             style += " border-bottom border-primary border-3";
-            data.push("Substitue Name")
+            data.push("Substitue Name");
         }
 
         if (rowNum & 1) {

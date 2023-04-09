@@ -14,7 +14,9 @@ export default class Substitue extends Component {
             { value: 8, label: 8 },
         ];
 
-        const periodIndex = periodOptions.findIndex(period => period.label === substitue.period);
+        const periodIndex = periodOptions.findIndex(
+            (period) => period.label === substitue.period
+        );
 
         return (
             <div className="align-items-center row">

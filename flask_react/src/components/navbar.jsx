@@ -7,5 +7,5 @@ export default class NavBar extends Component {
                 <h1 className="fs-2 ps-5 text-secondary">School Substitues</h1>
             </nav>
         );
-    }
+    };
 }

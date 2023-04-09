@@ -26,15 +26,16 @@ export default class App extends Component {
 
     getCSV = async () => {
         // retrieves data from csv
-        const csv = await fetch("http://127.0.0.1:5000/csv", {
+        await fetch("http://127.0.0.1:5000/csv", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
         })
             .then((res) => res.json())
-
-        this.setState({ csv })
+            .then((data) => {
+                this.setState({ csv: data });
+            });
     };
 
     getAvailableSubs = () => {
@@ -75,7 +76,7 @@ export default class App extends Component {
         this.setState({ substitues: newSubList });
     };
 
-    render() {
+    render = () => {
         console.log(this.state.csv);
         return (
             <Routes>

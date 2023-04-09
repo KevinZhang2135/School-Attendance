@@ -3,7 +3,6 @@ import Substitues from "./checkoutTable";
 import NavBar from "./navbar";
 import NavTabs from "./navtabs";
 
-
 export default class Checkout extends Component {
     render = () => {
         const { substitues, onDelete, onPeriodChange } = this.props;
@@ -20,5 +19,5 @@ export default class Checkout extends Component {
                 </main>
             </React.Fragment>
         );
-    }
+    };
 }

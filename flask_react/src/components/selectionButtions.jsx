@@ -4,7 +4,10 @@ export default class SelectionButton extends Component {
     render = () => {
         return (
             <div className="col">
-                <div className="card mt-1 mb-1 me-1 p-3 float-start" style={{ width: "30%" }}>
+                <div
+                    className="card mt-1 mb-1 me-1 p-3 float-start"
+                    style={{ width: "30%" }}
+                >
                     <h5 className="card-title">Card title</h5>
                     <p className="card-text">
                         Some quick example text to build on the card title and
@@ -15,7 +18,10 @@ export default class SelectionButton extends Component {
                     </button>
                 </div>
 
-                <div className="card mt-1 mb-1 me-1 p-3 float-start" style={{ width: "30%" }}>
+                <div
+                    className="card mt-1 mb-1 me-1 p-3 float-start"
+                    style={{ width: "30%" }}
+                >
                     <h5 className="card-title">Card title</h5>
                     <p className="card-text">
                         Some quick example text to build on the card title and
@@ -27,5 +33,5 @@ export default class SelectionButton extends Component {
                 </div>
             </div>
         );
-    }
+    };
 }
