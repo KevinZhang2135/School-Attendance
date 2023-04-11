@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import Substitue from "./checkoutRow";
+import CheckoutRow from "./checkoutRow";
 import { v4 as uuid } from "uuid";
 
-export default class Substitues extends Component {
+export default class CheckoutTable extends Component {
     renderSubstitues = () => {
-        const { substitues, onDelete, onPeriodChange } = this.props;
+        // displays a message if the checkout list is empty
+        const { substitues, handleDelete, onPeriodChange, confirmSubstitue } = this.props;
         if (substitues.length === 0) {
             return (
                 <span className="align-items-center mt-1 mb-1">
@@ -14,11 +15,12 @@ export default class Substitues extends Component {
         }
 
         return substitues.map((substitue) => (
-            <Substitue
+            <CheckoutRow
                 key={uuid()}
                 substitue={substitue}
-                onDelete={onDelete}
+                handleDelete={handleDelete}
                 onPeriodChange={onPeriodChange}
+                onSubmit={confirmSubstitue}
             />
         ));
     };

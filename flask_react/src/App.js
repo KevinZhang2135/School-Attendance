@@ -9,8 +9,8 @@ export default class App extends Component {
     state = {
         anchor: null,
         csv: [],
-        availableSubs: [],
-        substitues: [
+        subOptions: [],
+        checkout: [
             { id: 1, sub: "Sub1", teacher: "Teacher1", period: 2 },
             { id: 2, sub: "Sub2", teacher: "Teacher2", period: 2 },
             { id: 3, sub: "Sub3", teacher: "Teacher3", period: 3 },
@@ -20,14 +20,25 @@ export default class App extends Component {
     };
 
     componentDidMount = async () => {
-        await this.getCSV();
-        await this.getAvailableSubs();
-        this.setState({ anchor: this.getAnchor()});
+        await this.getCSV(); // fetches csv
+        await this.setSubOptions(); // determines which subs are available
+        this.setState({ anchor: this.getAnchor() }); // sets the url to the corresponding page
+    };
+
+    getAnchor = () => {
+        // splits url along delimiter and returns the portion after "#"
+        return document.URL.split("#").length > 1
+            ? document.URL.split("#")[1]
+            : null;
+    };
+
+    handleAnchorChange = (anchor) => {
+        this.setState({ anchor });
     };
 
     getCSV = async () => {
-        // retrieves data from csv
-        await fetch("http://127.0.0.1:5000/csv", {
+        // retrieves data from csv as json
+        await fetch("http://127.0.0.1:5000", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -39,25 +50,25 @@ export default class App extends Component {
             });
     };
 
-    getAvailableSubs = () => {
+    setSubOptions = () => {
         let availableSubs = this.state.csv.map((element) => element[3]); // gets teacher names
 
         availableSubs = availableSubs.filter((element, index, array) => {
             return array.indexOf(element) === index; // filters elements only for the first occurrence
         });
 
-        availableSubs.shift();
+        availableSubs.shift(); // removes the table header
         availableSubs = availableSubs.map((element) => {
             return { value: element, label: element }; // maps as value-label pairs
         });
 
-        this.setState({ availableSubs });
+        this.setState({ subOptions: availableSubs });
     };
 
     handlePeriodChange = (event, sub) => {
         // updates the periods after changing in checkout
         if (event !== null) {
-            const newSubList = this.state.substitues;
+            const newSubList = this.state.checkout;
             const index = newSubList.indexOf(sub);
             newSubList[index].period = event.value;
 
@@ -65,26 +76,30 @@ export default class App extends Component {
         }
     };
 
-    handleDelete = (id) => {
-        const newSubList = this.state.substitues.filter((sub) => sub.id !== id);
-        this.setState({ substitues: newSubList });
-    };
-
     addSubstitue = (sub, teacher, period) => {
-        const newSubList = this.state.substitues;
+        // adds substitue into the checkout with unique id
+        const newSubList = this.state.checkout;
         newSubList.push({ id: uuid(), sub, teacher, period: parseInt(period) });
 
         this.setState({ substitues: newSubList });
     };
 
-    getAnchor = () => {
-        return document.URL.split("#").length > 1
-            ? document.URL.split("#")[1]
-            : null;
+    handleDelete = (id) => {
+        const newSubList = this.state.checkout.filter((sub) => sub.id !== id);
+        this.setState({ substitues: newSubList });
     };
 
-    handleAnchorChange = (anchor) => {
-        this.setState({ anchor });
+    confirmSubstitue = (id) => {
+        const confirmedSub = this.state.checkout.find((sub) => sub.id === id);
+        console.log(confirmedSub);
+        fetch("http://127.0.0.1:5000/", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ...confirmedSub }),
+        });
     };
 
     render = () => {
@@ -96,9 +111,10 @@ export default class App extends Component {
 
                 {this.state.anchor === "checkout" && (
                     <Checkout
-                        substitues={this.state.substitues}
-                        onDelete={this.handleDelete}
+                        substitues={this.state.checkout}
+                        handleDelete={this.handleDelete}
                         onPeriodChange={this.handlePeriodChange}
+                        confirmSubstitue={this.confirmSubstitue}
                         refresh={this.handleAnchorChange}
                     />
                 )}
@@ -106,7 +122,7 @@ export default class App extends Component {
                 {this.state.anchor === "schedules" && (
                     <Schedule
                         csv={this.state.csv}
-                        availableSubs={this.state.availableSubs}
+                        availableSubs={this.state.subOptions}
                         addSubstitue={this.addSubstitue}
                         refresh={this.handleAnchorChange}
                     />

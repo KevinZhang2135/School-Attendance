@@ -3,6 +3,7 @@ import ScheduleRow from "./scheduleRow";
 
 export default class ScheduleTable extends Component {
     loadSpinner = () => {
+        // displays spinnering if the csv data is unavailable
         return (
             <React.Fragment>
                 <div
@@ -15,6 +16,7 @@ export default class ScheduleTable extends Component {
     };
 
     mapTable = () => {
+        // maps csv data as rows
         const { csv, availableSubs, addSubstitue } = this.props;
         const table = [];
         for (const row of csv) {

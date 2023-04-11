@@ -7,62 +7,63 @@ export default class ScheduleRow extends Component {
         selectedSub: null,
     };
 
-    addButton = (rowNum) => {
-        if (rowNum !== 0) {
-            return (
-                <div className="col-1 mt-2 mb-2">
-                    <button
-                        className="btn bg-success text-white container-fluid"
-                        onClick={() => {
-                            this.addSubstitue();
-                        }}
-                    >
-                        Confirm
-                    </button>
-                </div>
-            );
-        }
+    addButton = () => {
+        // adds confirm button into row
+        return (
+            <div className="col-1 mt-2 mb-2">
+                <button
+                    className="btn bg-success text-white container-fluid"
+                    onClick={() => {
+                        this.addSubstitue();
+                    }}
+                >
+                    Confirm
+                </button>
+            </div>
+        );
+        
     };
 
-    addSubSelection = (rowNum) => {
+    addSubSelection = () => {
+        // adds multi selection form for substitues into row
         const { availableSubs } = this.props;
         const selectedSubIndex = availableSubs.findIndex(
             (period) => period.label === this.state.selectedSub
         );
 
-        if (rowNum !== 0) {
-            return (
-                <div className="align-middle text-start mt-1 mb-1 col-2">
-                    <Select
-                        key={uuid()}
-                        className="basic-single"
-                        classNamePrefix="select"
-                        defaultValue={availableSubs[selectedSubIndex]}
-                        isDisabled={false}
-                        isLoading={false}
-                        isClearable={true}
-                        isRtl={false}
-                        isSearchable={true}
-                        name="periods"
-                        options={availableSubs}
-                        onChange={(e) => {
-                            this.updateSelectedSub(e);
-                        }}
-                    />
-                </div>
-            );
-        }
+        return (
+            <div className="align-middle text-start mt-1 mb-1 col-2">
+                <Select
+                    key={uuid()}
+                    className="basic-single"
+                    classNamePrefix="select"
+                    defaultValue={availableSubs[selectedSubIndex]}
+                    isDisabled={false}
+                    isLoading={false}
+                    isClearable={true}
+                    isRtl={false}
+                    isSearchable={true}
+                    name="periods"
+                    options={availableSubs}
+                    onChange={(e) => {
+                        this.updateSelectedSub(e);
+                    }}
+                />
+            </div>
+        );
     };
 
     addSubstitue = async () => {
-        const { data, addSubstitue } = this.props;
+        // adds substitue into checkout list and clears the form
+        const { data } = this.props;
         if (this.state.selectedSub !== null) {
-            addSubstitue(this.state.selectedSub, data[0], data[4]);
+            this.props.addSubstitue(this.state.selectedSub, data[0], data[4]);
             await this.setState({ selectedSub: null });
         }
     };
 
     updateSelectedSub = (event) => {
+        // updates selected substitue 
         if (event != null) {
             this.setState({ selectedSub: event.value });
         }
@@ -91,8 +92,8 @@ export default class ScheduleRow extends Component {
                     </span>
                 ))}
 
-                {this.addSubSelection(rowNum)}
-                {this.addButton(rowNum)}
+                {rowNum !== 0 && this.addSubSelection()}
+                {rowNum !== 0 && this.addButton()}
             </div>
         );
     };

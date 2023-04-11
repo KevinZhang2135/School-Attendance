@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Select from "react-select";
 
-export default class Substitue extends Component {
+export default class CheckoutRow extends Component {
     render = () => {
-        const { substitue, onDelete, onPeriodChange } = this.props;
+        const { substitue, handleDelete, onPeriodChange, onSubmit } = this.props;
         const periodOptions = [
             { value: 1, label: 1 },
             { value: 2, label: 2 },
@@ -49,7 +49,11 @@ export default class Substitue extends Component {
                 <div className="mt-1 mb-1 col-1" />
 
                 <div className="mt-1 mb-1 col-2">
-                    <button className="btn bg-success text-white container-fluid">
+                    <button
+                        className="btn bg-success text-white container-fluid"
+                        type="submit"
+                        onClick={() => onSubmit(substitue.id)}
+                    >
                         Confirm
                     </button>
                 </div>
@@ -57,7 +61,7 @@ export default class Substitue extends Component {
                 <div className="mt-1 mb-1 col-2">
                     <button
                         className="btn bg-danger text-white container-fluid"
-                        onClick={() => onDelete(substitue.id)}
+                        onClick={() => handleDelete(substitue.id)}
                     >
                         Cancel
                     </button>
