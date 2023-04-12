@@ -72,11 +72,6 @@ export default class ScheduleRow extends Component {
     render = () => {
         let { data, rowNum } = this.props;
         let style = "align-items-center row";
-        if (rowNum === 0) {
-            style += " border-bottom border-primary border-3";
-            data.push("Substitue Name");
-        }
-
         if (rowNum & 1) {
             style += " bg-light";
         }
@@ -92,8 +87,8 @@ export default class ScheduleRow extends Component {
                     </span>
                 ))}
 
-                {rowNum !== 0 && this.addSubSelection()}
-                {rowNum !== 0 && this.addButton()}
+                {this.addSubSelection()}
+                {this.addButton()}
             </div>
         );
     };

@@ -8,6 +8,7 @@ import Schedule from "./components/schedule";
 export default class App extends Component {
     state = {
         anchor: null,
+        csvHeader: [],
         csv: [],
         subOptions: [],
         checkout: [
@@ -46,7 +47,7 @@ export default class App extends Component {
         })
             .then((res) => res.json())
             .then((data) => {
-                this.setState({ csv: data });
+                this.setState({ csv: data.slice(1), csvHeader: data[0] });
             });
     };
 
@@ -102,6 +103,10 @@ export default class App extends Component {
         });
     };
 
+    sendSubToBottom = () => {
+
+    }
+
     render = () => {
         return (
             <React.Fragment>
@@ -122,6 +127,7 @@ export default class App extends Component {
                 {this.state.anchor === "schedules" && (
                     <Schedule
                         csv={this.state.csv}
+                        csvHeader={this.state.csvHeader}
                         availableSubs={this.state.subOptions}
                         addSubstitue={this.addSubstitue}
                         refresh={this.handleAnchorChange}

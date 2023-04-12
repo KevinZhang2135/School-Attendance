@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ScheduleHeader from "./scheduleHeader";
 import ScheduleRow from "./scheduleRow";
 
 export default class ScheduleTable extends Component {
@@ -15,20 +16,32 @@ export default class ScheduleTable extends Component {
         );
     };
 
+    addHeader = () => {
+        // csv header
+        const { csvHeader } = this.props;
+
+        let header = csvHeader.slice(3, 4);
+        header.push(...csvHeader.slice(6, 10));
+        header.push(...csvHeader.slice(13, 14));
+        return <ScheduleHeader key={csvHeader} data={header} />;
+    };
+
     mapTable = () => {
         // maps csv data as rows
         const { csv, availableSubs, addSubstitue } = this.props;
         const table = [];
+
         for (const row of csv) {
             let data = row.slice(3, 4);
             data.push(...row.slice(6, 10));
             data.push(...row.slice(13, 14));
+
             table.push(
                 <ScheduleRow
                     key={row}
                     data={data}
                     availableSubs={availableSubs.filter(
-                        (sub) => sub.label !== data[0]
+                        (sub) => sub.label !== row[0]
                     )}
                     rowNum={csv.indexOf(row)}
                     addSubstitue={addSubstitue}
@@ -43,6 +56,7 @@ export default class ScheduleTable extends Component {
         const { csv } = this.props;
         return (
             <div className="col">
+                {this.addHeader()}
                 {csv.length === 0 ? this.loadSpinner() : this.mapTable()}
             </div>
         );
