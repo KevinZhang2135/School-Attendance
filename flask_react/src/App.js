@@ -11,18 +11,16 @@ export default class App extends Component {
         csvHeader: [],
         csv: [],
         subOptions: [],
-        checkout: [
-            { id: 1, sub: "Sub1", teacher: "Teacher1", period: 2 },
-            { id: 2, sub: "Sub2", teacher: "Teacher2", period: 2 },
-            { id: 3, sub: "Sub3", teacher: "Teacher3", period: 3 },
-            { id: 4, sub: "Sub4", teacher: "Teacher4", period: 7 },
-            { id: 5, sub: "Sub5", teacher: "Teacher5", period: 6 },
-        ],
+        checkout: [],
     };
 
     componentDidMount = async () => {
+        console.log("this.state.checkout");
         await this.getCSV(); // fetches csv
         await this.setSubOptions(); // determines which subs are available
+
+        console.log(this.state.checkout);
+        
         this.setState({ anchor: this.getAnchor() }); // sets the url to the corresponding page
     };
 
@@ -34,6 +32,7 @@ export default class App extends Component {
     };
 
     handleAnchorChange = (anchor) => {
+        //event.preventDefault();
         this.setState({ anchor });
     };
 
@@ -73,44 +72,64 @@ export default class App extends Component {
             const index = newSubList.indexOf(sub);
             newSubList[index].period = event.value;
 
-            this.setState({ substitues: newSubList });
+            this.setState({ checkout: newSubList });
         }
     };
 
-    addSubstitue = (sub, teacher, period) => {
+    addSubstitue = (subName, teacher, period) => {
         // adds substitue into the checkout with unique id
         const newSubList = this.state.checkout;
-        newSubList.push({ id: uuid(), sub, teacher, period: parseInt(period) });
+        newSubList.push({
+            id: uuid(),
+            subName,
+            teacher,
+            period: parseInt(period),
+        });
 
-        this.setState({ substitues: newSubList });
+        this.setState({ checkout: newSubList });
     };
 
     handleDelete = (id) => {
-        const newSubList = this.state.checkout.filter((sub) => sub.id !== id);
-        this.setState({ substitues: newSubList });
+        const newSubList = this.state.checkout.filter(
+            (subName) => subName.id !== id
+        );
+        this.setState({ checkout: newSubList });
     };
 
-    confirmSubstitue = (id) => {
-        const confirmedSub = this.state.checkout.find((sub) => sub.id === id);
-        console.log(confirmedSub);
-        fetch("http://127.0.0.1:5000/", {
+    confirmSubstitue = async (id) => {
+        const confirmedSub = this.state.checkout.find(
+            (subName) => subName.id === id
+        );
+
+        this.sendSubToBottom(confirmedSub.subName);
+        this.handleDelete(confirmedSub.id);
+
+        const fetchBody = [this.state.csvHeader, ...this.state.csv];
+        await fetch("http://127.0.0.1:5000/", {
             method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ ...confirmedSub }),
+            body: JSON.stringify({ ...fetchBody }),
         });
     };
 
-    sendSubToBottom = () => {
+    sendSubToBottom = (subName) => {
+        let csv = this.state.csv;
+        let subs = csv.filter((sub) => sub[3] === subName);
+        subs.forEach((sub) => {
+            csv.splice(csv.indexOf(sub), 1);
+            csv.push(sub);
+        });
 
-    }
+        this.setState({ csv });
+    };
 
     render = () => {
         return (
             <React.Fragment>
-                {this.state.anchor === null && (
+                {(this.state.anchor === null || this.state.anchor === "home") && (
                     <Home refresh={this.handleAnchorChange} />
                 )}
 

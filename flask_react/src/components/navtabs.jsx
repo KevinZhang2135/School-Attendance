@@ -5,7 +5,7 @@ export default class NavTabs extends Component {
         const { refresh } = this.props;
         return (
             <div className="bg-body-tertiary p-0 col-1">
-                <a href="./index.html" onClick={() => refresh("")} className="btn container-fluid rounded-0">
+                <a href="./index.html#home" onClick={() => refresh("home")} className="btn container-fluid rounded-0">
                     Home
                 </a>
                 <a href="./index.html#checkout" onClick={() => refresh("checkout")} className="btn container-fluid rounded-0">

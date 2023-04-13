@@ -21,7 +21,7 @@ export default class CheckoutRow extends Component {
         return (
             <div className="align-items-center row">
                 <div className="align-middle text-start mt-1 mb-1 col-3">
-                    <span>{substitue.sub}</span>
+                    <span>{substitue.subName}</span>
                 </div>
 
                 <div className="align-middle text-start mt-1 mb-1 col-3">
