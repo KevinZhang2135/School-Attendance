@@ -15,12 +15,8 @@ export default class App extends Component {
     };
 
     componentDidMount = async () => {
-        console.log("this.state.checkout");
         await this.getCSV(); // fetches csv
-        await this.setSubOptions(); // determines which subs are available
 
-        console.log(this.state.checkout);
-        
         this.setState({ anchor: this.getAnchor() }); // sets the url to the corresponding page
     };
 
@@ -32,7 +28,6 @@ export default class App extends Component {
     };
 
     handleAnchorChange = (anchor) => {
-        //event.preventDefault();
         this.setState({ anchor });
     };
 
@@ -47,22 +42,25 @@ export default class App extends Component {
             .then((res) => res.json())
             .then((data) => {
                 this.setState({ csv: data.slice(1), csvHeader: data[0] });
+                return data.slice(1);
+            })
+            .then((data) => {
+                this.setSubOptions(data); // determines which subs are available from csv;
             });
     };
 
-    setSubOptions = () => {
-        let availableSubs = this.state.csv.map((element) => element[3]); // gets teacher names
+    setSubOptions = async (data) => {
+        let availableSubs = data.map((element) => element[3]); // gets teacher names
 
         availableSubs = availableSubs.filter((element, index, array) => {
             return array.indexOf(element) === index; // filters elements only for the first occurrence
         });
 
-        availableSubs.shift(); // removes the table header
         availableSubs = availableSubs.map((element) => {
             return { value: element, label: element }; // maps as value-label pairs
         });
 
-        this.setState({ subOptions: availableSubs });
+        await this.setState({ subOptions: availableSubs });
     };
 
     handlePeriodChange = (event, sub) => {
@@ -129,7 +127,8 @@ export default class App extends Component {
     render = () => {
         return (
             <React.Fragment>
-                {(this.state.anchor === null || this.state.anchor === "home") && (
+                {(this.state.anchor === null ||
+                    this.state.anchor === "home") && (
                     <Home refresh={this.handleAnchorChange} />
                 )}
 
@@ -147,7 +146,7 @@ export default class App extends Component {
                     <Schedule
                         csv={this.state.csv}
                         csvHeader={this.state.csvHeader}
-                        availableSubs={this.state.subOptions}
+                        subOptions={this.state.subOptions}
                         addSubstitue={this.addSubstitue}
                         refresh={this.handleAnchorChange}
                     />

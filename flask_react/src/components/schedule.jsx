@@ -5,7 +5,7 @@ import ScheduleTable from "./scheduleTable";
 
 export default class Schedule extends Component {
     render = () => {
-        const { csv, csvHeader, availableSubs, addSubstitue, refresh } = this.props;
+        const { csv, csvHeader, subOptions, addSubstitue, refresh } = this.props;
         return (
             <React.Fragment>
                 <NavBar />
@@ -14,7 +14,7 @@ export default class Schedule extends Component {
                     <ScheduleTable
                         csv={csv}
                         csvHeader={csvHeader}
-                        availableSubs={availableSubs}
+                        subOptions={subOptions}
                         addSubstitue={addSubstitue}
                     />
                 </main>

@@ -26,8 +26,8 @@ export default class ScheduleRow extends Component {
 
     addSubSelection = () => {
         // adds multi selection form for substitues into row
-        const { availableSubs } = this.props;
-        const selectedSubIndex = availableSubs.findIndex(
+        const { subOptions } = this.props;
+        const selectedSubIndex = subOptions.findIndex(
             (period) => period.label === this.state.selectedSub
         );
 
@@ -37,14 +37,14 @@ export default class ScheduleRow extends Component {
                     key={uuid()}
                     className="basic-single"
                     classNamePrefix="select"
-                    defaultValue={availableSubs[selectedSubIndex]}
+                    defaultValue={subOptions[selectedSubIndex]}
                     isDisabled={false}
                     isLoading={false}
                     isClearable={true}
                     isRtl={false}
                     isSearchable={true}
                     name="periods"
-                    options={availableSubs}
+                    options={subOptions}
                     onChange={(e) => {
                         this.updateSelectedSub(e);
                     }}
