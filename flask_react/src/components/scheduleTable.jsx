@@ -29,12 +29,25 @@ export default class ScheduleTable extends Component {
     mapTable = () => {
         // maps csv data as rows
         let { csv, subOptions, addSubstitute } = this.props;
-        const table = [];
+        csv = [...csv];
+
+        // sorts csv table alphabetically
+        csv.sort((a, b) => {
+            if (a[3] < b[3]) {
+                return -1;
+
+            } else if (a[3] > b[3]) {
+                return 1;
+            }
+            
+            return 0;
+        });
 
         subOptions = subOptions.map((teacherName) => {
             return { value: teacherName, label: teacherName }; // maps as value-label pairs
         });
 
+        const table = [];
         for (const row of csv) {
             let data = row.slice(3, 4);
             data.push(...row.slice(6, 10));

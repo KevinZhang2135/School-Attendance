@@ -52,10 +52,11 @@ export default class App extends Component {
 
     setOptions = (data) => {
         let availableSubs = data.map((teacher) => teacher[3]); // gets teacher names
-
         availableSubs = availableSubs.filter((teacher, index, array) => {
             return array.indexOf(teacher) === index; // filters elements only for the first occurrence
         });
+
+        availableSubs.sort();
 
         this.setState({
             subOptions: [...availableSubs],
@@ -88,10 +89,30 @@ export default class App extends Component {
     };
 
     addSubsForTeacher = (teacherName) => {
+        const addedSubs = [];
         const teacherClasses = this.state.csv.filter(
             (teacher) => teacher[3] === teacherName
         );
-        console.log(teacherClasses);
+
+        teacherClasses.forEach((classPeriod) => {
+            const period = classPeriod[9];
+            console.log(period);
+            for (let sub of this.state.csv) {
+                // sub's name is not teacher's name
+                // sub's period is not the teacher's period
+                // sub is not already added
+                if (
+                    sub[3] !== teacherName &&
+                    sub[6] !== period &&
+                    addedSubs.filter((subName) => subName === sub[3]).length ===
+                        0
+                ) {
+                    addedSubs.push(sub[3]);
+                    this.addSubstitute(sub[3], teacherName, period);
+                    break;
+                }
+            }
+        });
     };
 
     handleDelete = (id) => {
@@ -132,6 +153,7 @@ export default class App extends Component {
     };
 
     render = () => {
+        console.log(this.state.checkout);
         return (
             <React.Fragment>
                 {(this.state.anchor === null ||
