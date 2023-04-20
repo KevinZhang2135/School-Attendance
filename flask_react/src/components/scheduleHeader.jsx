@@ -4,7 +4,7 @@ export default class ScheduleHeader extends Component {
     render = () => {
         let { data } = this.props;
         let style = "align-items-center row border-bottom border-primary border-3";
-        data.push("Substitue Name");
+        data.push("Substitute Name");
 
         return (
             <div className={style}>

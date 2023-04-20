@@ -1,17 +1,24 @@
 import React, { Component } from "react";
 import NavBar from "./navbar";
 import NavTabs from "./navtabs";
-import SelectionButton from "./selectionButtions";
+import SelectionButtons from "./selectionButtons";
 
 export default class Home extends Component {
     render = () => {
-        const { refresh } = this.props;
+        let { refresh, addSubsForTeacher, teacherOptions } = this.props;
+        teacherOptions = teacherOptions.map((teacherName) => {
+            return { value: teacherName, label: teacherName }; // maps as value-label pairs
+        });
+
         return (
             <React.Fragment>
                 <NavBar />
                 <main className="container-fluid p-0 m-0 row">
                     <NavTabs refresh={refresh} />
-                    <SelectionButton />
+                    <SelectionButtons
+                        addSubsForTeacher={addSubsForTeacher}
+                        teacherOptions={teacherOptions}
+                    />
                 </main>
             </React.Fragment>
         );

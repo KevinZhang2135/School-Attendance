@@ -5,17 +5,17 @@ import NavTabs from "./navtabs";
 
 export default class Checkout extends Component {
     render = () => {
-        const { substitues, handleDelete, onPeriodChange, confirmSubstitue, refresh } = this.props;
+        const { substitutes, handleDelete, onPeriodChange, confirmSubstitute, refresh } = this.props;
         return (
             <React.Fragment>
                 <NavBar />
                 <main className="container-fluid p-0 m-0 row">
                     <NavTabs refresh={refresh} />
                     <CheckoutTable
-                        substitues={substitues}
+                        substitutes={substitutes}
                         handleDelete={handleDelete}
                         onPeriodChange={onPeriodChange}
-                        confirmSubstitue={confirmSubstitue}
+                        confirmSubstitute={confirmSubstitute}
                     />
                 </main>
             </React.Fragment>

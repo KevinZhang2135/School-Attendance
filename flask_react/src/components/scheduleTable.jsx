@@ -28,8 +28,12 @@ export default class ScheduleTable extends Component {
 
     mapTable = () => {
         // maps csv data as rows
-        const { csv, subOptions, addSubstitue } = this.props;
+        let { csv, subOptions, addSubstitute } = this.props;
         const table = [];
+
+        subOptions = subOptions.map((teacherName) => {
+            return { value: teacherName, label: teacherName }; // maps as value-label pairs
+        });
 
         for (const row of csv) {
             let data = row.slice(3, 4);
@@ -44,7 +48,7 @@ export default class ScheduleTable extends Component {
                         (sub) => sub.label !== row[3]
                     )}
                     rowNum={csv.indexOf(row)}
-                    addSubstitue={addSubstitue}
+                    addSubstitute={addSubstitute}
                 />
             );
         }

@@ -14,18 +14,17 @@ export default class ScheduleRow extends Component {
                 <button
                     className="btn bg-success text-white container-fluid"
                     onClick={() => {
-                        this.addSubstitue();
+                        this.addSubstitute();
                     }}
                 >
                     Confirm
                 </button>
             </div>
         );
-        
     };
 
     addSubSelection = () => {
-        // adds multi selection form for substitues into row
+        // adds multi selection form for substitutes into row
         const { subOptions } = this.props;
         const selectedSubIndex = subOptions.findIndex(
             (period) => period.label === this.state.selectedSub
@@ -53,17 +52,17 @@ export default class ScheduleRow extends Component {
         );
     };
 
-    addSubstitue = async () => {
-        // adds substitue into checkout list and clears the form
+    addSubstitute = () => {
+        // adds substitute into checkout list and clears the form
         const { data } = this.props;
         if (this.state.selectedSub !== null) {
-            this.props.addSubstitue(this.state.selectedSub, data[0], data[4]);
-            await this.setState({ selectedSub: null });
+            this.props.addSubstitute(this.state.selectedSub, data[0], data[4]);
+            this.setState({ selectedSub: null });
         }
     };
 
     updateSelectedSub = (event) => {
-        // updates selected substitue 
+        // updates selected substitute 
         if (event != null) {
             this.setState({ selectedSub: event.value });
         }

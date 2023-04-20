@@ -11,11 +11,12 @@ export default class App extends Component {
         csvHeader: [],
         csv: [],
         subOptions: [],
+        teacherOptions: [],
         checkout: [],
     };
 
-    componentDidMount = async () => {
-        await this.getCSV(); // fetches csv
+    componentDidMount = () => {
+        this.getCSV(); // fetches csv
 
         this.setState({ anchor: this.getAnchor() }); // sets the url to the corresponding page
     };
@@ -31,9 +32,9 @@ export default class App extends Component {
         this.setState({ anchor });
     };
 
-    getCSV = async () => {
+    getCSV = () => {
         // retrieves data from csv as json
-        await fetch("http://127.0.0.1:5000", {
+        fetch("http://127.0.0.1:5000", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -45,22 +46,21 @@ export default class App extends Component {
                 return data.slice(1);
             })
             .then((data) => {
-                this.setSubOptions(data); // determines which subs are available from csv;
+                this.setOptions(data); // determines which subs are available from csv;
             });
     };
 
-    setSubOptions = async (data) => {
-        let availableSubs = data.map((element) => element[3]); // gets teacher names
+    setOptions = (data) => {
+        let availableSubs = data.map((teacher) => teacher[3]); // gets teacher names
 
-        availableSubs = availableSubs.filter((element, index, array) => {
-            return array.indexOf(element) === index; // filters elements only for the first occurrence
+        availableSubs = availableSubs.filter((teacher, index, array) => {
+            return array.indexOf(teacher) === index; // filters elements only for the first occurrence
         });
 
-        availableSubs = availableSubs.map((element) => {
-            return { value: element, label: element }; // maps as value-label pairs
+        this.setState({
+            subOptions: [...availableSubs],
+            teacherOptions: [...availableSubs],
         });
-
-        await this.setState({ subOptions: availableSubs });
     };
 
     handlePeriodChange = (event, sub) => {
@@ -74,8 +74,8 @@ export default class App extends Component {
         }
     };
 
-    addSubstitue = (subName, teacher, period) => {
-        // adds substitue into the checkout with unique id
+    addSubstitute = (subName, teacher, period) => {
+        // adds substitute into the checkout with unique id
         const newSubList = this.state.checkout;
         newSubList.push({
             id: uuid(),
@@ -87,6 +87,13 @@ export default class App extends Component {
         this.setState({ checkout: newSubList });
     };
 
+    addSubsForTeacher = (teacherName) => {
+        const teacherClasses = this.state.csv.filter(
+            (teacher) => teacher[3] === teacherName
+        );
+        console.log(teacherClasses);
+    };
+
     handleDelete = (id) => {
         const newSubList = this.state.checkout.filter(
             (subName) => subName.id !== id
@@ -94,7 +101,7 @@ export default class App extends Component {
         this.setState({ checkout: newSubList });
     };
 
-    confirmSubstitue = async (id) => {
+    confirmSubstitute = (id) => {
         const confirmedSub = this.state.checkout.find(
             (subName) => subName.id === id
         );
@@ -103,7 +110,7 @@ export default class App extends Component {
         this.handleDelete(confirmedSub.id);
 
         const fetchBody = [this.state.csvHeader, ...this.state.csv];
-        await fetch("http://127.0.0.1:5000/", {
+        fetch("http://127.0.0.1:5000/", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -129,15 +136,19 @@ export default class App extends Component {
             <React.Fragment>
                 {(this.state.anchor === null ||
                     this.state.anchor === "home") && (
-                    <Home refresh={this.handleAnchorChange} />
+                    <Home
+                        refresh={this.handleAnchorChange}
+                        addSubsForTeacher={this.addSubsForTeacher}
+                        teacherOptions={this.state.teacherOptions}
+                    />
                 )}
 
                 {this.state.anchor === "checkout" && (
                     <Checkout
-                        substitues={this.state.checkout}
+                        substitutes={this.state.checkout}
                         handleDelete={this.handleDelete}
                         onPeriodChange={this.handlePeriodChange}
-                        confirmSubstitue={this.confirmSubstitue}
+                        confirmSubstitute={this.confirmSubstitute}
                         refresh={this.handleAnchorChange}
                     />
                 )}
@@ -147,7 +158,7 @@ export default class App extends Component {
                         csv={this.state.csv}
                         csvHeader={this.state.csvHeader}
                         subOptions={this.state.subOptions}
-                        addSubstitue={this.addSubstitue}
+                        addSubstitute={this.addSubstitute}
                         refresh={this.handleAnchorChange}
                     />
                 )}

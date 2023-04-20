@@ -1,0 +1,103 @@
+import React, { Component } from "react";
+import Select from "react-select";
+import { v4 as uuid } from "uuid";
+
+export default class SelectionButtons extends Component {
+    state = {
+        selectedTeacher: null,
+    };
+
+    addButton = () => {
+        // adds confirm button into row
+        return (
+            <div className="mt-2 mb-2">
+                <button
+                    className="btn bg-success text-white container-fluid"
+                    onClick={() => {
+                        this.addSubsForTeacher();
+                    }}
+                >
+                    Confirm
+                </button>
+            </div>
+        );
+    };
+
+    addSubSelection = () => {
+        // adds multi selection form for substitutes into row
+        const { teacherOptions } = this.props;
+        const selectedTeacherIndex = teacherOptions.findIndex(
+            (period) => period.label === this.state.selectedTeacher
+        );
+
+        return (
+            <div className="align-middle text-start mt-1 mb-1">
+                <Select
+                    key={uuid()}
+                    className="basic-single"
+                    classNamePrefix="select"
+                    defaultValue={teacherOptions[selectedTeacherIndex]}
+                    isDisabled={false}
+                    isLoading={false}
+                    isClearable={true}
+                    isRtl={false}
+                    isSearchable={true}
+                    name="periods"
+                    options={teacherOptions}
+                    onChange={(e) => {
+                        this.updateSelectedSub(e);
+                    }}
+                />
+            </div>
+        );
+    };
+
+    addSubsForTeacher = () => {
+        // adds substitute into checkout list and clears the form
+        if (this.state.selectedTeacher !== null) {
+            this.props.addSubsForTeacher(this.state.selectedTeacher);
+            this.setState({ selectedTeacher: null });
+        }
+    };
+
+    updateSelectedSub = (event) => {
+        // updates selected substitute
+        if (event != null) {
+            this.setState({ selectedTeacher: event.value });
+        }
+    };
+
+    render = () => {
+        return (
+            <div className="col">
+                <div
+                    className="card mt-1 mb-1 me-1 p-3 float-start"
+                    style={{ width: "30%" }}
+                >
+                    <h5 className="card-title">Substitute for Teacher</h5>
+                    <p className="card-text">
+                        Automatically selects substitutes for all the class
+                        periods for the teacher
+                    </p>
+
+                    {this.addSubSelection()}
+                    {this.addButton()}
+                </div>
+
+                <div
+                    className="card mt-1 mb-1 me-1 p-3 float-start"
+                    style={{ width: "30%" }}
+                >
+                    <h5 className="card-title">Card title</h5>
+                    <p className="card-text">
+                        Some quick example text to build on the card title and
+                        make up the bulk of the card's content.
+                    </p>
+                    <button className="btn bg-success text-white">
+                        Select
+                    </button>
+                </div>
+            </div>
+        );
+    };
+}
