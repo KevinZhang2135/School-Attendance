@@ -10,9 +10,9 @@ export default class ScheduleRow extends Component {
     addButton = () => {
         // adds confirm button into row
         return (
-            <div className="col-1 mt-2 mb-2">
+            <div className="col-1 my-2">
                 <button
-                    className="btn bg-success text-white container-fluid"
+                    className="btn bg-success text-white container-fluid rounded-pill"
                     onClick={() => {
                         this.addSubstitute();
                     }}
@@ -31,7 +31,7 @@ export default class ScheduleRow extends Component {
         );
 
         return (
-            <div className="align-middle text-start mt-1 mb-1 col-2">
+            <div className="align-middle text-start my-1 col-2">
                 <Select
                     key={uuid()}
                     className="basic-single"
@@ -79,7 +79,7 @@ export default class ScheduleRow extends Component {
             <div className={style}>
                 {data.map((item, index) => (
                     <span
-                        className="align-middle text-start mt-2 mb-2 col-1"
+                        className="align-middle text-start my-2 col-1"
                         key={item + index}
                     >
                         {item}

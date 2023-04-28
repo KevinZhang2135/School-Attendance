@@ -2,16 +2,20 @@ import React, { Component } from "react";
 
 export default class NavTabs extends Component {
     render = () => {
-        const { refresh } = this.props;
+        const { anchor, refresh } = this.props;
+
+        let selected = "btn btn-primary container-fluid mb-2 rounded-pill";
+        let unselected = "btn container-fluid mb-2 rounded-pill";
+        
         return (
-            <div className="bg-body-tertiary p-0 col-1">
-                <a href="./index.html#home" onClick={() => refresh("home")} className="btn container-fluid rounded-0">
+            <div className="container-fluid p-0 col-1 mx-3">
+                <a className={anchor === "home" ? selected: unselected} href="./index.html#home" onClick={() => refresh("home")} >
                     Home
                 </a>
-                <a href="./index.html#checkout" onClick={() => refresh("checkout")} className="btn container-fluid rounded-0">
+                <a className={anchor === "checkout" ? selected: unselected} href="./index.html#checkout" onClick={() => refresh("checkout")}>
                     Checkout
                 </a>
-                <a href="./index.html#schedules" onClick={() => refresh("schedules")} className="btn container-fluid rounded-0">
+                <a className={anchor === "schedules" ? selected: unselected} href="./index.html#schedules" onClick={() => refresh("schedules")}>
                     Schedules
                 </a>
             </div>

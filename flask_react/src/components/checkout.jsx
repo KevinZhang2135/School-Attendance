@@ -5,12 +5,20 @@ import NavTabs from "./navtabs";
 
 export default class Checkout extends Component {
     render = () => {
-        const { substitutes, handleDelete, onPeriodChange, confirmSubstitute, refresh } = this.props;
+        const {
+            anchor,
+            refresh,
+            substitutes,
+            handleDelete,
+            onPeriodChange,
+            confirmSubstitute,
+        } = this.props;
+
         return (
             <React.Fragment>
                 <NavBar />
                 <main className="container-fluid p-0 m-0 row">
-                    <NavTabs refresh={refresh} />
+                    <NavTabs anchor={anchor} refresh={refresh} />
                     <CheckoutTable
                         substitutes={substitutes}
                         handleDelete={handleDelete}

@@ -96,7 +96,6 @@ export default class App extends Component {
 
         teacherClasses.forEach((classPeriod) => {
             const period = classPeriod[9];
-            console.log(period);
             for (let sub of this.state.csv) {
                 // sub's name is not teacher's name
                 // sub's period is not the teacher's period
@@ -153,12 +152,12 @@ export default class App extends Component {
     };
 
     render = () => {
-        console.log(this.state.checkout);
         return (
             <React.Fragment>
                 {(this.state.anchor === null ||
                     this.state.anchor === "home") && (
                     <Home
+                        anchor={this.state.anchor}
                         refresh={this.handleAnchorChange}
                         addSubsForTeacher={this.addSubsForTeacher}
                         teacherOptions={this.state.teacherOptions}
@@ -167,21 +166,23 @@ export default class App extends Component {
 
                 {this.state.anchor === "checkout" && (
                     <Checkout
+                        anchor={this.state.anchor}
+                        refresh={this.handleAnchorChange}
                         substitutes={this.state.checkout}
                         handleDelete={this.handleDelete}
                         onPeriodChange={this.handlePeriodChange}
                         confirmSubstitute={this.confirmSubstitute}
-                        refresh={this.handleAnchorChange}
                     />
                 )}
 
                 {this.state.anchor === "schedules" && (
                     <Schedule
+                        anchor={this.state.anchor}
+                        refresh={this.handleAnchorChange}
                         csv={this.state.csv}
                         csvHeader={this.state.csvHeader}
                         subOptions={this.state.subOptions}
                         addSubstitute={this.addSubstitute}
-                        refresh={this.handleAnchorChange}
                     />
                 )}
             </React.Fragment>

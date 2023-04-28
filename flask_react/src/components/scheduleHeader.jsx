@@ -10,7 +10,7 @@ export default class ScheduleHeader extends Component {
             <div className={style}>
                 {data.map((item, index) => (
                     <span
-                        className="align-middle text-start mt-2 mb-2 col-1"
+                        className="align-middle text-start my-2 col-1"
                         key={item + index}
                     >
                         {item}

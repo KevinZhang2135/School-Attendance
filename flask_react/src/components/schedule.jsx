@@ -5,12 +5,12 @@ import ScheduleTable from "./scheduleTable";
 
 export default class Schedule extends Component {
     render = () => {
-        const { csv, csvHeader, subOptions, addSubstitute, refresh } = this.props;
+        const { anchor, refresh, csv, csvHeader, subOptions, addSubstitute } = this.props;
         return (
             <React.Fragment>
                 <NavBar />
                 <main className="container-fluid p-0 m-0 row">
-                    <NavTabs refresh={refresh} />
+                    <NavTabs anchor={anchor} refresh={refresh} />
                     <ScheduleTable
                         csv={csv}
                         csvHeader={csvHeader}

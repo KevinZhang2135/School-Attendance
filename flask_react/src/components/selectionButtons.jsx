@@ -10,9 +10,9 @@ export default class SelectionButtons extends Component {
     addButton = () => {
         // adds confirm button into row
         return (
-            <div className="mt-2 mb-2">
+            <div className="my-2">
                 <button
-                    className="btn bg-success text-white container-fluid"
+                    className="btn bg-success text-white container-fluid rounded-pill"
                     onClick={() => {
                         this.addSubsForTeacher();
                     }}
@@ -71,7 +71,7 @@ export default class SelectionButtons extends Component {
         return (
             <div className="col">
                 <div
-                    className="card mt-1 mb-1 me-1 p-3 float-start"
+                    className="card my-1 me-1 p-3 float-start"
                     style={{ width: "30%" }}
                 >
                     <h5 className="card-title">Substitute for Teacher</h5>
@@ -85,7 +85,7 @@ export default class SelectionButtons extends Component {
                 </div>
 
                 <div
-                    className="card mt-1 mb-1 me-1 p-3 float-start"
+                    className="card my-1 me-1 p-3 float-start"
                     style={{ width: "30%" }}
                 >
                     <h5 className="card-title">Card title</h5>
@@ -93,7 +93,7 @@ export default class SelectionButtons extends Component {
                         Some quick example text to build on the card title and
                         make up the bulk of the card's content.
                     </p>
-                    <button className="btn bg-success text-white">
+                    <button className="btn bg-success text-white rounded-pill">
                         Select
                     </button>
                 </div>

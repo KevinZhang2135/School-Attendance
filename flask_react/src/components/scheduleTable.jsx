@@ -8,7 +8,7 @@ export default class ScheduleTable extends Component {
         return (
             <React.Fragment>
                 <div
-                    className="spinner-border text-primary m-2 me-0 ms-0"
+                    className="spinner-border text-primary my-2 mx-0"
                     role="status"
                 />
                 <span>Loading...</span>

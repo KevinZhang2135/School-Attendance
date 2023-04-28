@@ -50,7 +50,7 @@ export default class CheckoutRow extends Component {
 
                 <div className="mt-1 mb-1 col-2">
                     <button
-                        className="btn bg-success text-white container-fluid"
+                        className="btn bg-success text-white container-fluid rounded-pill"
                         type="submit"
                         onClick={() => onSubmit(substitute.id)}
                     >
@@ -60,7 +60,7 @@ export default class CheckoutRow extends Component {
 
                 <div className="mt-1 mb-1 col-2">
                     <button
-                        className="btn bg-danger text-white container-fluid"
+                        className="btn bg-danger text-white container-fluid rounded-pill"
                         onClick={() => handleDelete(substitute.id)}
                     >
                         Cancel
