@@ -9,7 +9,7 @@ export default class NavTabs extends Component {
         
         return (
             <div className="container-fluid p-0 col-1 mx-3">
-                <a className={anchor === "home" ? selected: unselected} href="./index.html#home" onClick={() => refresh("home")} >
+                <a className={(anchor === null || anchor === "home") ? selected: unselected} href="./index.html#home" onClick={() => refresh("home")} >
                     Home
                 </a>
                 <a className={anchor === "checkout" ? selected: unselected} href="./index.html#checkout" onClick={() => refresh("checkout")}>
