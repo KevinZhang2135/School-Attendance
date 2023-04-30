@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NavBar from "./navbar";
 import NavTabs from "./navtabs";
 import ScheduleTable from "./scheduleTable";
+import Toasts from "./toasts";
 
 export default class Schedule extends Component {
     render = () => {
@@ -18,6 +19,7 @@ export default class Schedule extends Component {
                         addSubstitute={addSubstitute}
                     />
                 </main>
+                <Toasts />
             </React.Fragment>
         );
     };

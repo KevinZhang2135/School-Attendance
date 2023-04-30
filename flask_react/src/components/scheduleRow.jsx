@@ -62,7 +62,7 @@ export default class ScheduleRow extends Component {
     };
 
     updateSelectedSub = (event) => {
-        // updates selected substitute 
+        // updates selected substitute
         if (event != null) {
             this.setState({ selectedSub: event.value });
         }
@@ -70,10 +70,10 @@ export default class ScheduleRow extends Component {
 
     render = () => {
         let { data, rowNum } = this.props;
-        let style = "align-items-center row";
-        if (rowNum & 1) {
-            style += " bg-light";
-        }
+        let style =
+            rowNum & 1
+                ? "align-items-center row bg-light"
+                : "align-items-center row";
 
         return (
             <div className={style}>

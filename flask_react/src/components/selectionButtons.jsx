@@ -71,8 +71,8 @@ export default class SelectionButtons extends Component {
         return (
             <div className="col">
                 <div
-                    className="card my-1 me-1 p-3 float-start"
-                    style={{ width: "30%" }}
+                    className="card my-1 me-3 p-3 float-start shadow-sm"
+                    style={{ width: "25%" }}
                 >
                     <h5 className="card-title">Substitute for Teacher</h5>
                     <p className="card-text">
@@ -85,8 +85,8 @@ export default class SelectionButtons extends Component {
                 </div>
 
                 <div
-                    className="card my-1 me-1 p-3 float-start"
-                    style={{ width: "30%" }}
+                    className="card my-1 me-3 p-3 float-start shadow-sm"
+                    style={{ width: "25%" }}
                 >
                     <h5 className="card-title">
                         <span class="placeholder col-6"></span>
@@ -100,7 +100,7 @@ export default class SelectionButtons extends Component {
                         <span className="placeholder col-8"></span>
                     </p>
                     
-                    <button className="btn bg-success text-white rounded-pill disabled placeholder" />
+                    <button className="btn bg-success text-white rounded-pill disabled placeholder opacity-100" />
                 </div>
             </div>
         );

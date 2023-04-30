@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NavBar from "./navbar";
 import NavTabs from "./navtabs";
 import SelectionButtons from "./selectionButtons";
-import Toast from "./toasts";
+import Toasts from "./toasts";
 
 export default class Home extends Component {
     render = () => {
@@ -13,15 +13,18 @@ export default class Home extends Component {
 
         return (
             <React.Fragment>
-                <NavBar/>
-                <main className="container-fluid p-0 m-0 row">
+                <NavBar />
+                <main
+                    className="container-fluid p-0 m-0 row"
+                    style={{ height: "100%" }}
+                >
                     <NavTabs anchor={anchor} refresh={refresh} />
                     <SelectionButtons
                         addSubsForTeacher={addSubsForTeacher}
                         teacherOptions={teacherOptions}
                     />
                 </main>
-                <Toast/>
+                <Toasts />
             </React.Fragment>
         );
     };

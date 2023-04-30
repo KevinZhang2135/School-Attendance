@@ -15,13 +15,14 @@ export default class CheckoutTable extends Component {
             );
         }
 
-        return substitutes.map((substitute) => (
+        return substitutes.map((substitute, index) => (
             <CheckoutRow
                 key={uuid()}
                 substitute={substitute}
                 handleDelete={handleDelete}
                 onPeriodChange={onPeriodChange}
                 onSubmit={confirmSubstitute}
+                rowNum={index}
             />
         ));
     };
@@ -30,10 +31,10 @@ export default class CheckoutTable extends Component {
         return (
             <div className="col">
                 <div className="align-items-center border-bottom border-primary border-3 mb-2 row bg-white sticky-top">
-                    <span className="align-start text-start my-2 mx-0 col-3">
+                    <span className="align-start text-start my-2 mx-0 col-2">
                         Substitute
                     </span>
-                    <span className="align-start text-start my-2 mx-0 col-3">
+                    <span className="align-start text-start my-2 mx-0 col-2">
                         Teacher
                     </span>
                     <span className="align-start text-start my-2 mx-0 col-1">

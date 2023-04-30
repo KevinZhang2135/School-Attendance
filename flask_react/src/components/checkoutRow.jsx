@@ -3,7 +3,7 @@ import Select from "react-select";
 
 export default class CheckoutRow extends Component {
     render = () => {
-        const { substitute, handleDelete, onPeriodChange, onSubmit } =
+        const { substitute, handleDelete, onPeriodChange, onSubmit, rowNum } =
             this.props;
         const periodOptions = [
             { value: 1, label: 1 },
@@ -19,13 +19,18 @@ export default class CheckoutRow extends Component {
             (period) => period.label === substitute.period
         );
 
+        let style =
+            rowNum & 1
+                ? "align-items-center row bg-light"
+                : "align-items-center row";
+
         return (
-            <div className="align-items-center row">
-                <div className="align-middle text-start my-2 col-3">
+            <div className={style}>
+                <div className="align-middle text-start my-2 col-2">
                     <span>{substitute.subName}</span>
                 </div>
 
-                <div className="align-middle text-start my-2 col-3">
+                <div className="align-middle text-start my-2 col-2">
                     <span>{substitute.teacher}</span>
                 </div>
 
@@ -46,6 +51,7 @@ export default class CheckoutRow extends Component {
                         }}
                     />
                 </div>
+
                 <div className="my-2 col-1" />
                 <div className="my-2 col-1">
                     <button
@@ -56,7 +62,8 @@ export default class CheckoutRow extends Component {
                         Confirm
                     </button>
                 </div>
-
+                
+                <div className="my-2 col-1" />
                 <div className="my-2 col-1">
                     <button
                         className="btn bg-danger text-white container-fluid"
