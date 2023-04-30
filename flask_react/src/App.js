@@ -12,7 +12,7 @@ export default class App extends Component {
         csv: [],
         subOptions: [],
         teacherOptions: [],
-        checkout: [],
+        checkout: []
     };
 
     componentDidMount = () => {

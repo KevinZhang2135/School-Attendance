@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NavBar from "./navbar";
 import NavTabs from "./navtabs";
 import SelectionButtons from "./selectionButtons";
-import { Toast } from "react-bootstrap";
+import Toast from "./toasts";
 
 export default class Home extends Component {
     render = () => {
@@ -13,7 +13,7 @@ export default class Home extends Component {
 
         return (
             <React.Fragment>
-                <NavBar />
+                <NavBar/>
                 <main className="container-fluid p-0 m-0 row">
                     <NavTabs anchor={anchor} refresh={refresh} />
                     <SelectionButtons
@@ -21,20 +21,7 @@ export default class Home extends Component {
                         teacherOptions={teacherOptions}
                     />
                 </main>
-                <Toast>
-                    <Toast.Header>
-                        <img
-                            src="holder.js/20x20?text=%20"
-                            className="rounded me-2"
-                            alt=""
-                        />
-                        <strong className="me-auto">Bootstrap</strong>
-                        <small>11 mins ago</small>
-                    </Toast.Header>
-                    <Toast.Body>
-                        Hello, world! This is a toast message.
-                    </Toast.Body>
-                </Toast>
+                <Toast/>
             </React.Fragment>
         );
     };

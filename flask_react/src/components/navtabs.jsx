@@ -8,7 +8,7 @@ export default class NavTabs extends Component {
         let unselected = "btn container-fluid mb-2 rounded-pill";
         
         return (
-            <div className="container-fluid p-0 col-1 mx-3">
+            <div className="container-fluid p-0 col-1 mx-3 bg-white">
                 <a className={(anchor === null || anchor === "home") ? selected: unselected} href="./index.html#home" onClick={() => refresh("home")} >
                     Home
                 </a>

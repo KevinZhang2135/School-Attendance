@@ -3,8 +3,12 @@ import React, { Component } from "react";
 export default class ScheduleHeader extends Component {
     render = () => {
         let { data } = this.props;
-        let style = "align-items-center row border-bottom border-primary border-3";
-        data.push("Substitute Name");
+        let style =
+            "align-items-center row border-bottom border-primary border-3 bg-white sticky-top";
+
+        if (data.length !== 0) {
+            data.push("Substitute Name");
+        }
 
         return (
             <div className={style}>

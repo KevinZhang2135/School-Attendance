@@ -88,14 +88,19 @@ export default class SelectionButtons extends Component {
                     className="card my-1 me-1 p-3 float-start"
                     style={{ width: "30%" }}
                 >
-                    <h5 className="card-title">Card title</h5>
-                    <p className="card-text">
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
+                    <h5 className="card-title">
+                        <span class="placeholder col-6"></span>
+                    </h5>
+
+                    <p className="card-text placeholder-glow">
+                        <span className="placeholder col-7"></span>
+                        <span className="placeholder col-4"></span>
+                        <span className="placeholder col-4"></span>
+                        <span className="placeholder col-6"></span>
+                        <span className="placeholder col-8"></span>
                     </p>
-                    <button className="btn bg-success text-white rounded-pill">
-                        Select
-                    </button>
+                    
+                    <button className="btn bg-success text-white rounded-pill disabled placeholder" />
                 </div>
             </div>
         );

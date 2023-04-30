@@ -29,7 +29,7 @@ export default class CheckoutTable extends Component {
     render = () => {
         return (
             <div className="col">
-                <div className="align-items-center border-bottom border-primary border-3 mb-2 row">
+                <div className="align-items-center border-bottom border-primary border-3 mb-2 row bg-white sticky-top">
                     <span className="align-start text-start my-2 mx-0 col-3">
                         Substitute
                     </span>
