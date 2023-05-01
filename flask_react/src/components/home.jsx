@@ -6,7 +6,8 @@ import Toasts from "./toasts";
 
 export default class Home extends Component {
     render = () => {
-        let { anchor, refresh, addSubsForTeacher, teacherOptions } = this.props;
+        let { anchor, refresh, addSubsForTeacher, teacherOptions, toasts, deleteToast } =
+            this.props;
         teacherOptions = teacherOptions.map((teacherName) => {
             return { value: teacherName, label: teacherName }; // maps as value-label pairs
         });
@@ -24,7 +25,7 @@ export default class Home extends Component {
                         teacherOptions={teacherOptions}
                     />
                 </main>
-                <Toasts />
+                <Toasts toasts={toasts} deleteToast={deleteToast} />
             </React.Fragment>
         );
     };

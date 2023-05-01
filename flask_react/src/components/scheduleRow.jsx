@@ -12,12 +12,12 @@ export default class ScheduleRow extends Component {
         return (
             <div className="col-1 my-2">
                 <button
-                    className="btn bg-success text-white container-fluid rounded-pill"
+                    className="btn bg-info container-fluid"
                     onClick={() => {
                         this.addSubstitute();
                     }}
                 >
-                    Confirm
+                    Add
                 </button>
             </div>
         );

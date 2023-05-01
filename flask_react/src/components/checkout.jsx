@@ -10,9 +10,11 @@ export default class Checkout extends Component {
             anchor,
             refresh,
             substitutes,
-            handleDelete,
+            removeSubstitute,
             onPeriodChange,
             confirmSubstitute,
+            toasts,
+            deleteToast,
         } = this.props;
 
         return (
@@ -22,12 +24,12 @@ export default class Checkout extends Component {
                     <NavTabs anchor={anchor} refresh={refresh} />
                     <CheckoutTable
                         substitutes={substitutes}
-                        handleDelete={handleDelete}
+                        removeSubstitute={removeSubstitute}
                         onPeriodChange={onPeriodChange}
                         confirmSubstitute={confirmSubstitute}
                     />
                 </main>
-                <Toasts />
+                <Toasts toasts={toasts} deleteToast={deleteToast} />
             </React.Fragment>
         );
     };

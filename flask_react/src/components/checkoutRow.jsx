@@ -3,8 +3,9 @@ import Select from "react-select";
 
 export default class CheckoutRow extends Component {
     render = () => {
-        const { substitute, handleDelete, onPeriodChange, onSubmit, rowNum } =
+        const { substitute, removeSubstitute, onPeriodChange, confirmSubstitute, rowNum } =
             this.props;
+
         const periodOptions = [
             { value: 1, label: 1 },
             { value: 2, label: 2 },
@@ -57,7 +58,7 @@ export default class CheckoutRow extends Component {
                     <button
                         className="btn bg-success text-white container-fluid rounded-pill"
                         type="submit"
-                        onClick={() => onSubmit(substitute.id)}
+                        onClick={() => {confirmSubstitute(substitute.id)}}
                     >
                         Confirm
                     </button>
@@ -67,7 +68,7 @@ export default class CheckoutRow extends Component {
                 <div className="my-2 col-1">
                     <button
                         className="btn bg-danger text-white container-fluid"
-                        onClick={() => handleDelete(substitute.id)}
+                        onClick={() => {removeSubstitute(substitute.id)}}
                     >
                         Cancel
                     </button>

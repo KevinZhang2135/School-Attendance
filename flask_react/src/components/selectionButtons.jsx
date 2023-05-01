@@ -89,7 +89,7 @@ export default class SelectionButtons extends Component {
                     style={{ width: "25%" }}
                 >
                     <h5 className="card-title">
-                        <span class="placeholder col-6"></span>
+                        <span className="placeholder col-6"></span>
                     </h5>
 
                     <p className="card-text placeholder-glow">

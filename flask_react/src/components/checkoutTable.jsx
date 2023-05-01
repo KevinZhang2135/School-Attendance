@@ -5,7 +5,7 @@ import { v4 as uuid } from "uuid";
 export default class CheckoutTable extends Component {
     renderSubstitutes = () => {
         // displays a message if the checkout list is empty
-        const { substitutes, handleDelete, onPeriodChange, confirmSubstitute } =
+        const { substitutes, removeSubstitute, onPeriodChange, confirmSubstitute } =
             this.props;
         if (substitutes.length === 0) {
             return (
@@ -19,9 +19,9 @@ export default class CheckoutTable extends Component {
             <CheckoutRow
                 key={uuid()}
                 substitute={substitute}
-                handleDelete={handleDelete}
+                removeSubstitute={removeSubstitute}
                 onPeriodChange={onPeriodChange}
-                onSubmit={confirmSubstitute}
+                confirmSubstitute={confirmSubstitute}
                 rowNum={index}
             />
         ));
