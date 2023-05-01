@@ -12,12 +12,12 @@ export default class SelectionButtons extends Component {
         return (
             <div className="my-2">
                 <button
-                    className="btn bg-success text-white container-fluid rounded-pill"
+                    className="btn bg-info container-fluid fw-medium"
                     onClick={() => {
                         this.addSubsForTeacher();
                     }}
                 >
-                    Confirm
+                    Add
                 </button>
             </div>
         );

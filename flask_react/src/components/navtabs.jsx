@@ -4,7 +4,7 @@ export default class NavTabs extends Component {
     render = () => {
         const { anchor, refresh } = this.props;
 
-        let selected = "btn btn-primary container-fluid mb-2 rounded-pill";
+        let selected = "btn btn-primary container-fluid mb-2 rounded-pill fw-medium";
         let unselected = "btn container-fluid mb-2 rounded-pill";
         
         return (

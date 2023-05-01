@@ -31,7 +31,7 @@ export default class Toasts extends Component {
                     style={{ display: "block" }}
                     key={toast.id}
                 >
-                    <div className="toast-header">
+                    <div className="toast-header fw-normal">
                         <svg
                             className="rounded me-2"
                             width="20"

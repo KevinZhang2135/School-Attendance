@@ -56,7 +56,7 @@ export default class CheckoutRow extends Component {
                 <div className="my-2 col-1" />
                 <div className="my-2 col-1">
                     <button
-                        className="btn bg-success text-white container-fluid rounded-pill"
+                        className="btn bg-success text-white container-fluid rounded-pill fw-medium"
                         type="submit"
                         onClick={() => {confirmSubstitute(substitute.id)}}
                     >
@@ -67,8 +67,8 @@ export default class CheckoutRow extends Component {
                 <div className="my-2 col-1" />
                 <div className="my-2 col-1">
                     <button
-                        className="btn bg-danger text-white container-fluid"
-                        onClick={() => {removeSubstitute(substitute.id)}}
+                        className="btn bg-danger text-white container-fluid fw-medium"
+                        onClick={() => {removeSubstitute(substitute.id, true)}}
                     >
                         Cancel
                     </button>

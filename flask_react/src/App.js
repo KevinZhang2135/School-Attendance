@@ -115,11 +115,14 @@ export default class App extends Component {
         });
     };
 
-    removeSubstitute = (id) => {
+    removeSubstitute = (id, showToast=false) => {
         const removedSub = this.state.checkout.find((sub) => sub.id === id)
         const newSubList = this.state.checkout.filter((sub) => sub.id !== id);
 
-        this.addToast(uuid(), "Substitute Removed", `${removedSub.subName} was removed from the checkout`);
+        if (showToast) {
+            this.addToast(uuid(), "Substitute Removed", `${removedSub.subName} was removed from the checkout`);
+        }
+        
         this.setState({ checkout: newSubList });
     };
 
@@ -133,7 +136,6 @@ export default class App extends Component {
         this.addToast(uuid(), "Substitute Confirmed", `${confirmedSub.subName} was confirmed`);
 
         const fetchBody = [this.state.csvHeader, ...this.state.csv];
-        console.log(fetchBody);
         fetch("http://127.0.0.1:5000/", {
             method: "POST",
             headers: {

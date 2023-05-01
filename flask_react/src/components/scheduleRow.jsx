@@ -12,7 +12,7 @@ export default class ScheduleRow extends Component {
         return (
             <div className="col-1 my-2">
                 <button
-                    className="btn bg-info container-fluid"
+                    className="btn bg-info container-fluid fw-medium"
                     onClick={() => {
                         this.addSubstitute();
                     }}
