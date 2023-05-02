@@ -136,7 +136,7 @@ export default class App extends Component {
         this.addToast(uuid(), "Substitute Confirmed", `${confirmedSub.subName} was confirmed`);
 
         const fetchBody = [this.state.csvHeader, ...this.state.csv];
-        fetch("http://127.0.0.1:5000/", {
+        fetch("http://127.0.0.1:5000", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -160,7 +160,7 @@ export default class App extends Component {
     addToast = (id, title, body) => {
         const toasts = this.state.toasts;
         toasts.push({ id, title, body });
-        if (toasts.length > 7) {
+        if (toasts.length > 6) {
             toasts.splice(0, 1);
         }
 
