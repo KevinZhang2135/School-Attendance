@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import CheckoutTable from "./checkoutTable";
 import NavBar from "./navbar";
 import NavTabs from "./navtabs";
-import Toasts from "./toasts";
 
 export default class Checkout extends Component {
     render = () => {
@@ -13,8 +12,6 @@ export default class Checkout extends Component {
             removeSubstitute,
             onPeriodChange,
             confirmSubstitute,
-            toasts,
-            deleteToast,
         } = this.props;
 
         return (
@@ -29,7 +26,6 @@ export default class Checkout extends Component {
                         confirmSubstitute={confirmSubstitute}
                     />
                 </main>
-                <Toasts toasts={toasts} deleteToast={deleteToast} />
             </React.Fragment>
         );
     };

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import NavBar from "./navbar";
 import NavTabs from "./navtabs";
 import ScheduleTable from "./scheduleTable";
-import Toasts from "./toasts";
 
 export default class Schedule extends Component {
     render = () => {
@@ -13,8 +12,6 @@ export default class Schedule extends Component {
             csvHeader,
             subOptions,
             addSubstitute,
-            toasts,
-            deleteToast,
         } = this.props;
         return (
             <React.Fragment>
@@ -28,7 +25,6 @@ export default class Schedule extends Component {
                         addSubstitute={addSubstitute}
                     />
                 </main>
-                <Toasts toasts={toasts} deleteToast={deleteToast} />
             </React.Fragment>
         );
     };

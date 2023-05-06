@@ -13,7 +13,6 @@ export default class App extends Component {
         subOptions: [],
         teacherOptions: [],
         checkout: [],
-        toasts: [],
     };
 
     componentDidMount = () => {
@@ -85,7 +84,6 @@ export default class App extends Component {
             period: parseInt(period),
         });
 
-        this.addToast(uuid(), "Substitute Added", `${subName} was added to the checkout`);
         this.setState({ checkout: newSubList });
     };
 
@@ -115,14 +113,8 @@ export default class App extends Component {
         });
     };
 
-    removeSubstitute = (id, showToast=false) => {
-        const removedSub = this.state.checkout.find((sub) => sub.id === id)
+    removeSubstitute = (id) => {
         const newSubList = this.state.checkout.filter((sub) => sub.id !== id);
-
-        if (showToast) {
-            this.addToast(uuid(), "Substitute Removed", `${removedSub.subName} was removed from the checkout`);
-        }
-        
         this.setState({ checkout: newSubList });
     };
 
@@ -133,7 +125,6 @@ export default class App extends Component {
 
         this.sendSubToBottom(confirmedSub.subName);
         this.removeSubstitute(id);
-        this.addToast(uuid(), "Substitute Confirmed", `${confirmedSub.subName} was confirmed`);
 
         const fetchBody = [this.state.csvHeader, ...this.state.csv];
         fetch("http://127.0.0.1:5000", {
@@ -157,21 +148,6 @@ export default class App extends Component {
         this.setState({ csv });
     };
 
-    addToast = (id, title, body) => {
-        const toasts = this.state.toasts;
-        toasts.push({ id, title, body });
-        if (toasts.length > 6) {
-            toasts.splice(0, 1);
-        }
-
-        this.setState({ toasts });
-    };
-
-    deleteToast = (id) => {
-        const toasts = this.state.toasts.filter((toast) => toast.id !== id);
-        this.setState({ toasts });
-    };
-
     render = () => {
         return (
             <React.Fragment>
@@ -182,8 +158,6 @@ export default class App extends Component {
                         refresh={this.handleAnchorChange}
                         teacherOptions={this.state.teacherOptions}
                         addSubsForTeacher={this.addSubsForTeacher}
-                        toasts={this.state.toasts}
-                        deleteToast={this.deleteToast}
                     />
                 )}
 
@@ -195,8 +169,6 @@ export default class App extends Component {
                         removeSubstitute={this.removeSubstitute}
                         onPeriodChange={this.handlePeriodChange}
                         confirmSubstitute={this.confirmSubstitute}
-                        toasts={this.state.toasts}
-                        deleteToast={this.deleteToast}
                     />
                 )}
 
@@ -208,8 +180,6 @@ export default class App extends Component {
                         csvHeader={this.state.csvHeader}
                         subOptions={this.state.subOptions}
                         addSubstitute={this.addSubstitute}
-                        toasts={this.state.toasts}
-                        deleteToast={this.deleteToast}
                     />
                 )}
             </React.Fragment>

@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import NavBar from "./navbar";
 import NavTabs from "./navtabs";
 import SelectionButtons from "./selectionButtons";
-import Toasts from "./toasts";
 
 export default class Home extends Component {
     render = () => {
-        let { anchor, refresh, addSubsForTeacher, teacherOptions, toasts, deleteToast } =
+        let { anchor, refresh, addSubsForTeacher, teacherOptions } =
             this.props;
         teacherOptions = teacherOptions.map((teacherName) => {
             return { value: teacherName, label: teacherName }; // maps as value-label pairs
@@ -25,7 +24,6 @@ export default class Home extends Component {
                         teacherOptions={teacherOptions}
                     />
                 </main>
-                <Toasts toasts={toasts} deleteToast={deleteToast} />
             </React.Fragment>
         );
     };
