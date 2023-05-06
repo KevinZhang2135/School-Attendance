@@ -10,7 +10,7 @@ export default class ScheduleRow extends Component {
     addButton = () => {
         // adds confirm button into row
         return (
-            <div className="col-1 my-2">
+            <div className="align-middle text-start my-2 col-1">
                 <button
                     className="btn bg-info container-fluid fw-medium"
                     onClick={() => {
@@ -31,7 +31,7 @@ export default class ScheduleRow extends Component {
         );
 
         return (
-            <div className="align-middle text-start my-1 col-2">
+            <div className="align-middle text-start my-2 col-2">
                 <Select
                     key={uuid()}
                     className="basic-single"

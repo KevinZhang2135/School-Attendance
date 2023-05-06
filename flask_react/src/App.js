@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid";
 import Home from "./components/home";
 import Checkout from "./components/checkout";
 import Schedule from "./components/schedule";
+import Summary from "./components/summary";
 
 export default class App extends Component {
     state = {
@@ -13,6 +14,7 @@ export default class App extends Component {
         subOptions: [],
         teacherOptions: [],
         checkout: [],
+        summary: []
     };
 
     componentDidMount = () => {
@@ -74,12 +76,12 @@ export default class App extends Component {
         }
     };
 
-    addSubstitute = (subName, teacher, period) => {
+    addSubstitute = (name, teacher, period) => {
         // adds substitute into the checkout with unique id
         const newSubList = this.state.checkout;
         newSubList.push({
             id: uuid(),
-            subName,
+            name,
             teacher,
             period: parseInt(period),
         });
@@ -102,7 +104,7 @@ export default class App extends Component {
                 if (
                     sub[3] !== teacherName &&
                     sub[6] !== period &&
-                    addedSubs.filter((subName) => subName === sub[3]).length ===
+                    addedSubs.filter((name) => name === sub[3]).length ===
                         0
                 ) {
                     addedSubs.push(sub[3]);
@@ -120,10 +122,10 @@ export default class App extends Component {
 
     confirmSubstitute = (id) => {
         const confirmedSub = this.state.checkout.find(
-            (subName) => subName.id === id
+            (name) => name.id === id
         );
 
-        this.sendSubToBottom(confirmedSub.subName);
+        this.sendSubToBottom(confirmedSub.name);
         this.removeSubstitute(id);
 
         const fetchBody = [this.state.csvHeader, ...this.state.csv];
@@ -137,9 +139,9 @@ export default class App extends Component {
         });
     };
 
-    sendSubToBottom = (subName) => {
+    sendSubToBottom = (name) => {
         let csv = this.state.csv;
-        let subs = csv.filter((sub) => sub[3] === subName);
+        let subs = csv.filter((sub) => sub[3] === name);
         subs.forEach((sub) => {
             csv.splice(csv.indexOf(sub), 1);
             csv.push(sub);
@@ -147,6 +149,11 @@ export default class App extends Component {
 
         this.setState({ csv });
     };
+
+    updateSummary = () => {
+
+
+    }
 
     render = () => {
         return (
@@ -180,6 +187,13 @@ export default class App extends Component {
                         csvHeader={this.state.csvHeader}
                         subOptions={this.state.subOptions}
                         addSubstitute={this.addSubstitute}
+                    />
+                )}
+
+                {(this.state.anchor === "summary") && (
+                    <Summary
+                        anchor={this.state.anchor}
+                        refresh={this.handleAnchorChange}
                     />
                 )}
             </React.Fragment>

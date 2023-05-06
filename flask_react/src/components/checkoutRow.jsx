@@ -20,22 +20,24 @@ export default class CheckoutRow extends Component {
             (period) => period.label === substitute.period
         );
 
-        let style =
+        const style =
             rowNum & 1
                 ? "align-items-center row bg-light"
                 : "align-items-center row";
 
+        const rowStyle = "align-middle text-start my-2";
+
         return (
             <div className={style}>
-                <div className="align-middle text-start my-2 col-2">
-                    <span>{substitute.subName}</span>
+                <div className={rowStyle + " col-2"}>
+                    <span>{substitute.name}</span>
                 </div>
 
-                <div className="align-middle text-start my-2 col-2">
+                <div className={rowStyle + " col-2"}>
                     <span>{substitute.teacher}</span>
                 </div>
 
-                <div className="align-middle text-start my-2 col-1">
+                <div className={rowStyle + " col-1"}>
                     <Select
                         className="basic-single"
                         classNamePrefix="select"
@@ -53,8 +55,8 @@ export default class CheckoutRow extends Component {
                     />
                 </div>
 
-                <div className="my-2 col-1" />
-                <div className="my-2 col-1">
+                <div className={rowStyle + " col-1"} />
+                <div className={rowStyle + " col-1"}>
                     <button
                         className="btn bg-success text-white container-fluid rounded-pill fw-medium"
                         type="submit"
@@ -64,11 +66,11 @@ export default class CheckoutRow extends Component {
                     </button>
                 </div>
                 
-                <div className="my-2 col-1" />
-                <div className="my-2 col-1">
+                <div className={rowStyle + " col-1"} />
+                <div className={rowStyle + " col-1"}>
                     <button
                         className="btn bg-danger text-white container-fluid fw-medium"
-                        onClick={() => {removeSubstitute(substitute.id, true)}}
+                        onClick={() => {removeSubstitute(substitute.id)}}
                     >
                         Cancel
                     </button>

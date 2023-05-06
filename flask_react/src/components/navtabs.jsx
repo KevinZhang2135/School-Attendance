@@ -13,10 +13,14 @@ export default class NavTabs extends Component {
                     Home
                 </a>
                 <a className={anchor === "checkout" ? selected: unselected} href="./index.html#checkout" onClick={() => refresh("checkout")}>
-                    Checkout
+                    Substitutes
                 </a>
                 <a className={anchor === "schedules" ? selected: unselected} href="./index.html#schedules" onClick={() => refresh("schedules")}>
                     Schedules
+                </a>
+
+                <a className={anchor === "summary" ? selected: unselected} href="./index.html#summary" onClick={() => refresh("summary")}>
+                    Summary
                 </a>
             </div>
         );
