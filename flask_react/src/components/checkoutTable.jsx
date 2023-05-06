@@ -7,6 +7,7 @@ export default class CheckoutTable extends Component {
         // displays a message if the checkout list is empty
         const { substitutes, removeSubstitute, onPeriodChange, confirmSubstitute } =
             this.props;
+            
         if (substitutes.length === 0) {
             return (
                 <span className="align-items-center my-1">

@@ -13,6 +13,7 @@ export default class Schedule extends Component {
             subOptions,
             addSubstitute,
         } = this.props;
+        
         return (
             <React.Fragment>
                 <NavBar />

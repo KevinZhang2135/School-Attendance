@@ -14,7 +14,7 @@ export default class App extends Component {
         subOptions: [],
         teacherOptions: [],
         checkout: [],
-        summary: []
+        summary: [],
     };
 
     componentDidMount = () => {
@@ -104,8 +104,7 @@ export default class App extends Component {
                 if (
                     sub[3] !== teacherName &&
                     sub[6] !== period &&
-                    addedSubs.filter((name) => name === sub[3]).length ===
-                        0
+                    addedSubs.filter((name) => name === sub[3]).length === 0
                 ) {
                     addedSubs.push(sub[3]);
                     this.addSubstitute(sub[3], teacherName, period);
@@ -121,12 +120,11 @@ export default class App extends Component {
     };
 
     confirmSubstitute = (id) => {
-        const confirmedSub = this.state.checkout.find(
-            (name) => name.id === id
-        );
+        const confirmedSub = this.state.checkout.find((name) => name.id === id);
 
         this.sendSubToBottom(confirmedSub.name);
         this.removeSubstitute(id);
+        this.updateSummary(confirmedSub);
 
         const fetchBody = [this.state.csvHeader, ...this.state.csv];
         fetch("http://127.0.0.1:5000", {
@@ -150,10 +148,23 @@ export default class App extends Component {
         this.setState({ csv });
     };
 
-    updateSummary = () => {
+    updateSummary = (substitute) => {
+        const teacher = this.state.summary.find(
+            (teacher) => (teacher.name === substitute.teacher)
+        );
 
+        if (teacher) {
+            teacher.substitutes.push(substitute);
+            
 
-    }
+        } else {
+            this.state.summary.push({
+                id: uuid(),
+                name: substitute.teacher,
+                substitutes: [substitute],
+            });
+        }
+    };
 
     render = () => {
         return (
@@ -190,10 +201,11 @@ export default class App extends Component {
                     />
                 )}
 
-                {(this.state.anchor === "summary") && (
+                {this.state.anchor === "summary" && (
                     <Summary
                         anchor={this.state.anchor}
                         refresh={this.handleAnchorChange}
+                        summary={this.state.summary}
                     />
                 )}
             </React.Fragment>

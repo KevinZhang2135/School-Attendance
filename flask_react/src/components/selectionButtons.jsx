@@ -71,7 +71,7 @@ export default class SelectionButtons extends Component {
         return (
             <div className="col">
                 <div
-                    className="card my-1 me-3 p-3 float-start shadow-sm"
+                    className="card my-2 me-3 p-3 float-start shadow-sm"
                     style={{ width: "25%" }}
                 >
                     <h5 className="card-title">Substitute for Teacher</h5>
@@ -85,7 +85,7 @@ export default class SelectionButtons extends Component {
                 </div>
 
                 <div
-                    className="card my-1 me-3 p-3 float-start shadow-sm"
+                    className="card my-2 me-3 p-3 float-start shadow-sm"
                     style={{ width: "25%" }}
                 >
                     <h5 className="card-title">
