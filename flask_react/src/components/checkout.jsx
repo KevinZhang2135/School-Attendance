@@ -12,6 +12,7 @@ export default class Checkout extends Component {
             removeSubstitute,
             onPeriodChange,
             confirmSubstitute,
+            addSubsForTeacher,
         } = this.props;
 
         return (
@@ -24,6 +25,7 @@ export default class Checkout extends Component {
                         removeSubstitute={removeSubstitute}
                         onPeriodChange={onPeriodChange}
                         confirmSubstitute={confirmSubstitute}
+                        addSubsForTeacher={addSubsForTeacher}
                     />
                 </main>
             </React.Fragment>

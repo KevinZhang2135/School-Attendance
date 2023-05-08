@@ -5,25 +5,29 @@ import { v4 as uuid } from "uuid";
 export default class CheckoutTable extends Component {
     renderSubstitutes = () => {
         // displays a message if the checkout list is empty
-        const { substitutes, removeSubstitute, onPeriodChange, confirmSubstitute } =
-            this.props;
-            
+        const {
+            substitutes,
+            removeSubstitute,
+            onPeriodChange,
+            confirmSubstitute,
+            addSubsForTeacher,
+        } = this.props;
+
         if (substitutes.length === 0) {
             return (
-                <span className="align-items-center my-1">
-                    Nothing to show
-                </span>
+                <span className="align-items-center my-1">Nothing to show</span>
             );
         }
 
         return substitutes.map((substitute, index) => (
             <CheckoutRow
                 key={uuid()}
+                rowNum={index}
                 substitute={substitute}
                 removeSubstitute={removeSubstitute}
                 onPeriodChange={onPeriodChange}
                 confirmSubstitute={confirmSubstitute}
-                rowNum={index}
+                addSubsForTeacher={addSubsForTeacher}
             />
         ));
     };

@@ -9,10 +9,10 @@ export default class Summary extends Component {
         return summary.map((teacher) => (
             <div
                 className="card my-2 me-3 p-3 float-start shadow-sm"
-                key={teacher.key}
+                key={teacher.name + teacher.id}
                 style={{ width: "15%" }}
             >
-                <div className="align-items-center justify-content-center border-bottom border-primary border-3 pb-2 fw-medium">
+                <div className="d-flex justify-content-center align-items-center border-bottom border-primary border-3 pb-2 fw-medium">
                     Substitutes for {teacher.name}
                 </div>
                 {this.mapSubstitutes(teacher.substitutes)}
@@ -29,10 +29,15 @@ export default class Summary extends Component {
 
             return (
                 <React.Fragment>
-                    <div className={style} key={substitute.id}>
-                        <div className="my-2 col">{substitute.name}</div>
+                    <div
+                        className={style}
+                        key={substitute.name + substitute.id}
+                    >
+                        <div className="d-flex justify-content-start my-2 ms-2 col">
+                            {substitute.name}
+                        </div>
 
-                        <div className="my-2 col">
+                        <div className="d-flex justify-content-end my-2 me-2 col">
                             Period {substitute.period}
                         </div>
                     </div>

@@ -3,8 +3,14 @@ import Select from "react-select";
 
 export default class CheckoutRow extends Component {
     render = () => {
-        const { substitute, removeSubstitute, onPeriodChange, confirmSubstitute, rowNum } =
-            this.props;
+        const {
+            rowNum,
+            substitute,
+            removeSubstitute,
+            onPeriodChange,
+            confirmSubstitute,
+            addSubsForTeacher,
+        } = this.props;
 
         const periodOptions = [
             { value: 1, label: 1 },
@@ -55,22 +61,37 @@ export default class CheckoutRow extends Component {
                     />
                 </div>
 
-                <div className={rowStyle + " col-1"} />
                 <div className={rowStyle + " col-1"}>
                     <button
                         className="btn bg-success text-white container-fluid rounded-pill fw-medium"
                         type="submit"
-                        onClick={() => {confirmSubstitute(substitute.id)}}
+                        onClick={() => {
+                            confirmSubstitute(substitute.id);
+                        }}
                     >
                         Confirm
                     </button>
                 </div>
-                
-                <div className={rowStyle + " col-1"} />
+
+                <div className={rowStyle + " col-1"}>
+                    <button
+                        className="btn bg-info container-fluid rounded-pill fw-medium"
+                        type="submit"
+                        onClick={() => {
+                            addSubsForTeacher(substitute.teacher);
+                            removeSubstitute(substitute.id);
+                        }}
+                    >
+                        Reselect
+                    </button>
+                </div>
+
                 <div className={rowStyle + " col-1"}>
                     <button
                         className="btn bg-danger text-white container-fluid fw-medium"
-                        onClick={() => {removeSubstitute(substitute.id)}}
+                        onClick={() => {
+                            removeSubstitute(substitute.id);
+                        }}
                     >
                         Cancel
                     </button>

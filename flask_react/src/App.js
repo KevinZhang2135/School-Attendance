@@ -114,6 +114,8 @@ export default class App extends Component {
         });
     };
 
+    reselectSub = (omittedTeacher, period) => {};
+
     removeSubstitute = (id) => {
         const newSubList = this.state.checkout.filter((sub) => sub.id !== id);
         this.setState({ checkout: newSubList });
@@ -150,13 +152,11 @@ export default class App extends Component {
 
     updateSummary = (substitute) => {
         const teacher = this.state.summary.find(
-            (teacher) => (teacher.name === substitute.teacher)
+            (teacher) => teacher.name === substitute.teacher
         );
 
         if (teacher) {
             teacher.substitutes.push(substitute);
-            
-
         } else {
             this.state.summary.push({
                 id: uuid(),
@@ -187,6 +187,7 @@ export default class App extends Component {
                         removeSubstitute={this.removeSubstitute}
                         onPeriodChange={this.handlePeriodChange}
                         confirmSubstitute={this.confirmSubstitute}
+                        addSubsForTeacher={this.addSubsForTeacher}
                     />
                 )}
 
