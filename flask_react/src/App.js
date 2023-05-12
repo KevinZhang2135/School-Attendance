@@ -89,9 +89,8 @@ export default class App extends Component {
         this.setState({ checkout: newSubList });
     };
 
-    addSubsForTeacher = (teacherName) => {
-        const addedSubs = [];
-        const teacherClasses = this.state.csv.filter(
+    addSubsForTeacher = (teacherName, classPeriod = null) => {
+        let teacherClasses = this.state.csv.filter(
             (teacher) => teacher[3] === teacherName
         );
 
@@ -101,12 +100,14 @@ export default class App extends Component {
                 // sub's name is not teacher's name
                 // sub's period is not the teacher's period
                 // sub is not already added
+
                 if (
                     sub[3] !== teacherName &&
                     sub[6] !== period &&
-                    addedSubs.filter((name) => name === sub[3]).length === 0
+                    this.state.checkout.filter(
+                        (substitue) => substitue.name === sub[3]
+                    ).length === 0
                 ) {
-                    addedSubs.push(sub[3]);
                     this.addSubstitute(sub[3], teacherName, period);
                     break;
                 }
@@ -114,7 +115,27 @@ export default class App extends Component {
         });
     };
 
-    reselectSub = (omittedTeacher, period) => {};
+    reselectSubstitute = (id) => {
+        let newSubList = this.state.checkout;
+        const substitute = newSubList.find((sub) => sub.id === id);
+        for (let sub of this.state.csv) {
+            // sub's name is not substitute's name
+            // sub's period is the teacher's period
+            // sub is not already added
+
+            if (
+                sub[3] !== substitute.name &&
+                sub[6] === substitute.period &&
+                this.state.checkout.filter(
+                    (substitue) => substitue.name === sub[3]
+                ).length === 0
+            ) {
+                substitute.name = sub[3];
+                this.setState({ checkout: newSubList });
+                break;
+            }
+        }
+    };
 
     removeSubstitute = (id) => {
         const newSubList = this.state.checkout.filter((sub) => sub.id !== id);
@@ -124,8 +145,8 @@ export default class App extends Component {
     confirmSubstitute = (id) => {
         const confirmedSub = this.state.checkout.find((name) => name.id === id);
 
-        this.sendSubToBottom(confirmedSub.name);
         this.removeSubstitute(id);
+        this.sendSubToBottom(confirmedSub.name);
         this.updateSummary(confirmedSub);
 
         const fetchBody = [this.state.csvHeader, ...this.state.csv];
