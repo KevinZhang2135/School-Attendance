@@ -89,7 +89,7 @@ export default class App extends Component {
         this.setState({ checkout: newSubList });
     };
 
-    addSubsForTeacher = (teacherName, classPeriod = null) => {
+    addSubsForTeacher = (teacherName) => {
         let teacherClasses = this.state.csv.filter(
             (teacher) => teacher[3] === teacherName
         );
@@ -105,7 +105,7 @@ export default class App extends Component {
                     sub[3] !== teacherName &&
                     sub[6] !== period &&
                     this.state.checkout.filter(
-                        (substitue) => substitue.name === sub[3]
+                        (substitute) => substitute.name === sub[3]
                     ).length === 0
                 ) {
                     this.addSubstitute(sub[3], teacherName, period);
@@ -116,19 +116,33 @@ export default class App extends Component {
     };
 
     reselectSubstitute = (id) => {
-        let newSubList = this.state.checkout;
+        // allows users to reselect the next available substitute in the checkout
+        const newSubList = this.state.checkout;
         const substitute = newSubList.find((sub) => sub.id === id);
-        for (let sub of this.state.csv) {
+
+        const subIndex = this.state.csv.findIndex(
+            (teacher) => teacher[3] === substitute.name
+        );
+
+        // creates a cycled csv so the search will cycle from the csv from front to back
+        const cycledCsv = this.state.csv
+            .slice(subIndex)
+            .concat(this.state.csv.slice(0, subIndex));
+
+        for (let sub of cycledCsv) {
             // sub's name is not substitute's name
             // sub's period is the teacher's period
             // sub is not already added
 
+            const subNotAdded =
+                this.state.checkout.filter(
+                    (substitute) => substitute.name === sub[3]
+                ).length === 0;
+
             if (
                 sub[3] !== substitute.name &&
-                sub[6] === substitute.period &&
-                this.state.checkout.filter(
-                    (substitue) => substitue.name === sub[3]
-                ).length === 0
+                parseInt(sub[9]) !== substitute.period &&
+                subNotAdded
             ) {
                 substitute.name = sub[3];
                 this.setState({ checkout: newSubList });
@@ -143,6 +157,7 @@ export default class App extends Component {
     };
 
     confirmSubstitute = (id) => {
+        // confirms substitute and updates the csv through the flask server
         const confirmedSub = this.state.checkout.find((name) => name.id === id);
 
         this.removeSubstitute(id);
@@ -161,6 +176,7 @@ export default class App extends Component {
     };
 
     sendSubToBottom = (name) => {
+        // sends subs to the bottom of the csv in preparation for updating csv file
         let csv = this.state.csv;
         let subs = csv.filter((sub) => sub[3] === name);
         subs.forEach((sub) => {
@@ -172,6 +188,7 @@ export default class App extends Component {
     };
 
     updateSummary = (substitute) => {
+        // updates the summary of confirmed substitutes
         const teacher = this.state.summary.find(
             (teacher) => teacher.name === substitute.teacher
         );
@@ -208,7 +225,7 @@ export default class App extends Component {
                         removeSubstitute={this.removeSubstitute}
                         onPeriodChange={this.handlePeriodChange}
                         confirmSubstitute={this.confirmSubstitute}
-                        addSubsForTeacher={this.addSubsForTeacher}
+                        reselectSubstitute={this.reselectSubstitute}
                     />
                 )}
 

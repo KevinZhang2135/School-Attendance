@@ -20,9 +20,11 @@ export default class ScheduleTable extends Component {
         // csv header
         const { csvHeader } = this.props;
 
-        let header = csvHeader.slice(3, 4);
-        header.push(...csvHeader.slice(6, 10));
-        header.push(...csvHeader.slice(13, 14));
+        const header = csvHeader
+            .slice(3, 4)
+            .concat(csvHeader.slice(6, 10))
+            .concat(...csvHeader.slice(13, 14));
+
         return <ScheduleHeader key={csvHeader} data={header} />;
     };
 
@@ -35,11 +37,10 @@ export default class ScheduleTable extends Component {
         csv.sort((a, b) => {
             if (a[3] < b[3]) {
                 return -1;
-
             } else if (a[3] > b[3]) {
                 return 1;
             }
-            
+
             return 0;
         });
 

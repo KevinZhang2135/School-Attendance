@@ -10,7 +10,7 @@ export default class CheckoutTable extends Component {
             removeSubstitute,
             onPeriodChange,
             confirmSubstitute,
-            addSubsForTeacher,
+            reselectSubstitute
         } = this.props;
 
         if (substitutes.length === 0) {
@@ -27,7 +27,7 @@ export default class CheckoutTable extends Component {
                 removeSubstitute={removeSubstitute}
                 onPeriodChange={onPeriodChange}
                 confirmSubstitute={confirmSubstitute}
-                addSubsForTeacher={addSubsForTeacher}
+                reselectSubstitute={reselectSubstitute}
             />
         ));
     };

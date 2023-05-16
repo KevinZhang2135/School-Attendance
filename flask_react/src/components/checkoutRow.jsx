@@ -9,7 +9,7 @@ export default class CheckoutRow extends Component {
             removeSubstitute,
             onPeriodChange,
             confirmSubstitute,
-            addSubsForTeacher,
+            reselectSubstitute
         } = this.props;
 
         const periodOptions = [
@@ -78,8 +78,7 @@ export default class CheckoutRow extends Component {
                         className="btn bg-info container-fluid rounded-pill fw-medium"
                         type="submit"
                         onClick={() => {
-                            addSubsForTeacher(substitute.teacher);
-                            removeSubstitute(substitute.id);
+                            reselectSubstitute(substitute.id);
                         }}
                     >
                         Reselect
