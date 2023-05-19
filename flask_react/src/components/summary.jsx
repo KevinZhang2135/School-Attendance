@@ -28,20 +28,15 @@ export default class Summary extends Component {
                     : "align-items-center row";
 
             return (
-                <React.Fragment>
-                    <div
-                        className={style}
-                        key={substitute.name + substitute.id}
-                    >
-                        <div className="d-flex justify-content-start my-2 ms-2 col">
-                            {substitute.name}
-                        </div>
-
-                        <div className="d-flex justify-content-end my-2 me-2 col">
-                            Period {substitute.period}
-                        </div>
+                <div className={style} key={substitute.name + substitute.id}>
+                    <div className="d-flex justify-content-start my-2 ms-2 col">
+                        {substitute.name}
                     </div>
-                </React.Fragment>
+
+                    <div className="d-flex justify-content-end my-2 me-2 col">
+                        Period {substitute.period}
+                    </div>
+                </div>
             );
         });
     };

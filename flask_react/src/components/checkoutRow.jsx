@@ -9,7 +9,8 @@ export default class CheckoutRow extends Component {
             removeSubstitute,
             onPeriodChange,
             confirmSubstitute,
-            reselectSubstitute
+            reselectSubstitute,
+            postCSV
         } = this.props;
 
         const periodOptions = [
@@ -67,6 +68,7 @@ export default class CheckoutRow extends Component {
                         type="submit"
                         onClick={() => {
                             confirmSubstitute(substitute.id);
+                            postCSV();
                         }}
                     >
                         Confirm

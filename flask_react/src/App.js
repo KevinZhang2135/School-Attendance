@@ -156,6 +156,10 @@ export default class App extends Component {
         this.setState({ checkout: newSubList });
     };
 
+    removeAllSubstitutes = () => {
+        this.setState({ checkout: [] });
+    };
+
     confirmSubstitute = (id) => {
         // confirms substitute and updates the csv through the flask server
         const confirmedSub = this.state.checkout.find((name) => name.id === id);
@@ -163,7 +167,20 @@ export default class App extends Component {
         this.removeSubstitute(id);
         this.sendSubToBottom(confirmedSub.name);
         this.updateSummary(confirmedSub);
+    };
 
+    confirmAllSubstitutes = () => {
+        // confirms all substitutes and updates the csv
+        for (const substitute of this.state.checkout) {
+            this.sendSubToBottom(substitute.name);
+            this.updateSummary(substitute);
+        }
+
+        this.removeAllSubstitutes();
+    };
+
+    postCSV = () => {
+        // updates the csv through the flask server
         const fetchBody = [this.state.csvHeader, ...this.state.csv];
         fetch("http://127.0.0.1:5000", {
             method: "POST",
@@ -223,8 +240,11 @@ export default class App extends Component {
                         refresh={this.handleAnchorChange}
                         substitutes={this.state.checkout}
                         removeSubstitute={this.removeSubstitute}
+                        removeAllSubstitutes={this.removeAllSubstitutes}
                         onPeriodChange={this.handlePeriodChange}
                         confirmSubstitute={this.confirmSubstitute}
+                        confirmAllSubstitutes={this.confirmAllSubstitutes}
+                        postCSV={this.postCSV}
                         reselectSubstitute={this.reselectSubstitute}
                     />
                 )}

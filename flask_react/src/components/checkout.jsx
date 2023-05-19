@@ -10,9 +10,12 @@ export default class Checkout extends Component {
             refresh,
             substitutes,
             removeSubstitute,
+            removeAllSubstitutes,
             onPeriodChange,
             confirmSubstitute,
-            reselectSubstitute
+            confirmAllSubstitutes,
+            reselectSubstitute,
+            postCSV
         } = this.props;
 
         return (
@@ -23,9 +26,12 @@ export default class Checkout extends Component {
                     <CheckoutTable
                         substitutes={substitutes}
                         removeSubstitute={removeSubstitute}
+                        removeAllSubstitutes={removeAllSubstitutes}
                         onPeriodChange={onPeriodChange}
                         confirmSubstitute={confirmSubstitute}
+                        confirmAllSubstitutes={confirmAllSubstitutes}
                         reselectSubstitute={reselectSubstitute}
+                        postCSV={postCSV}
                     />
                 </main>
             </React.Fragment>
