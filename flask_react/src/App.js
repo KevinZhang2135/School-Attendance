@@ -18,7 +18,7 @@ export default class App extends Component {
     };
 
     componentDidMount = () => {
-        this.getCSV(); // fetches csv
+        this.setFetchInterval(3000, 3); // fetches csv
         this.setState({ anchor: this.getAnchor() }); // sets the url to the corresponding page
     };
 
@@ -33,22 +33,42 @@ export default class App extends Component {
         this.setState({ anchor });
     };
 
-    getCSV = () => {
-        // retrieves data from csv as json
-        fetch("http://127.0.0.1:5000", {
+    setFetchInterval = async (delay, maxIter) => {
+        let attempts = 1;
+        let json = await this.getCSV(); // attempt 1 begins immediately
+        if (json == null) {
+            const interval = setInterval(async () => {
+                json = await this.getCSV();
+                if (json == null) {
+                    // if maxIter attempts fail, stops fetching
+                    if (++attempts >= maxIter) {
+                        clearInterval(interval);
+                    }
+                }
+            }, delay);
+        }
+
+        if (json != null) {
+            this.setState({
+                csv: json.slice(1),
+                csvHeader: json[0],
+            });
+            this.setOptions(json.slice(1));
+        }
+    };
+
+    getCSV = async () => {
+        // tries to retrieve data from csv as json
+        const response = await fetch("http://127.0.0.1:5000", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
         })
-            .then((res) => res.json())
-            .then((data) => {
-                this.setState({ csv: data.slice(1), csvHeader: data[0] });
-                return data.slice(1);
-            })
-            .then((data) => {
-                this.setOptions(data); // determines which subs are available from csv;
-            });
+            .then((response) => response.json())
+            .catch(() => null);
+
+        return response;
     };
 
     setOptions = (data) => {

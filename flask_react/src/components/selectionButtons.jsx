@@ -83,25 +83,6 @@ export default class SelectionButtons extends Component {
                     {this.addSubSelection()}
                     {this.addButton()}
                 </div>
-
-                <div
-                    className="card my-2 me-3 p-3 float-start shadow-sm"
-                    style={{ width: "25%" }}
-                >
-                    <h5 className="card-title">
-                        <span className="placeholder col-6"></span>
-                    </h5>
-
-                    <p className="card-text placeholder-glow">
-                        <span className="placeholder col-7"></span>
-                        <span className="placeholder col-4"></span>
-                        <span className="placeholder col-4"></span>
-                        <span className="placeholder col-6"></span>
-                        <span className="placeholder col-8"></span>
-                    </p>
-                    
-                    <button className="btn bg-success text-white rounded-pill disabled placeholder opacity-100" />
-                </div>
             </div>
         );
     };

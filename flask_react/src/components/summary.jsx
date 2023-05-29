@@ -10,7 +10,7 @@ export default class Summary extends Component {
             <div
                 className="card my-2 me-3 p-3 float-start shadow-sm"
                 key={teacher.name + teacher.id}
-                style={{ width: "15%" }}
+                style={{ width: "25%" }}
             >
                 <div className="d-flex justify-content-center align-items-center border-bottom border-primary border-3 pb-2 fw-medium">
                     Substitutes for {teacher.name}
