@@ -72,12 +72,12 @@ export default class SelectionButtons extends Component {
             <div className="col">
                 <div
                     className="card my-2 me-3 p-3 float-start shadow-sm"
-                    style={{ width: "25%" }}
+                    style={{ width: "25rem" }}
                 >
                     <h5 className="card-title">Substitute for Teacher</h5>
                     <p className="card-text">
                         Automatically selects substitutes for all the class
-                        periods for the teacher
+                        periods for the teacher.
                     </p>
 
                     {this.addSubSelection()}

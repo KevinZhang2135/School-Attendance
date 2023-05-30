@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { v4 as uuid } from "uuid";
 
+import Popup from "./components/popup";
 import Home from "./components/home";
 import Checkout from "./components/checkout";
 import Schedule from "./components/schedule";
@@ -34,6 +35,7 @@ export default class App extends Component {
     };
 
     setFetchInterval = async (delay, maxIter) => {
+        // attempts to fetch csv with delay intervals for maxIter times
         let attempts = 1;
         let json = await this.getCSV(); // attempt 1 begins immediately
         if (json == null) {
@@ -244,6 +246,7 @@ export default class App extends Component {
     render = () => {
         return (
             <React.Fragment>
+                {this.state.csv.length === 0 && <Popup />}
                 {(this.state.anchor === null ||
                     this.state.anchor === "home") && (
                     <Home
