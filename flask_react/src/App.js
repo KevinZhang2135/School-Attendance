@@ -19,7 +19,7 @@ export default class App extends Component {
     };
 
     componentDidMount = () => {
-        this.setFetchInterval(3000, 3); // fetches csv
+        this.setFetchInterval(5000); // fetches csv
         this.setState({ anchor: this.getAnchor() }); // sets the url to the corresponding page
     };
 
@@ -34,28 +34,34 @@ export default class App extends Component {
         this.setState({ anchor });
     };
 
-    setFetchInterval = async (delay, maxIter) => {
+    setFetchInterval = async (delay) => {
         // attempts to fetch csv with delay intervals for maxIter times
-        let attempts = 1;
         let json = await this.getCSV(); // attempt 1 begins immediately
-        if (json == null) {
-            const interval = setInterval(async () => {
-                json = await this.getCSV();
-                if (json == null) {
-                    // if maxIter attempts fail, stops fetching
-                    if (++attempts >= maxIter) {
-                        clearInterval(interval);
-                    }
-                }
-            }, delay);
-        }
 
+        // data successfully retrieved
         if (json != null) {
             this.setState({
                 csv: json.slice(1),
                 csvHeader: json[0],
             });
+
             this.setOptions(json.slice(1));
+
+        // fetch failed
+        } else  {
+            const interval = setInterval(async () => {
+                json = await this.getCSV();
+                if (json != null) {
+                    // if stops fetching once the json is fetched
+                    clearInterval(interval);
+                    this.setState({
+                        csv: json.slice(1),
+                        csvHeader: json[0],
+                    });
+
+                    this.setOptions(json.slice(1)); 
+                }
+            }, delay);
         }
     };
 

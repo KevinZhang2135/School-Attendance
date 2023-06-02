@@ -5,11 +5,11 @@ export default class Popup extends Component {
         return (
             <div className="">
                 <div
-                    className="card my-2 me-3 p-3 float-start border-danger shadow-sm position-absolute bottom-0 end-0"
+                    className="card my-2 me-3 p-3 float-start bg-danger shadow-sm position-absolute bottom-0 end-0"
                     style={{ width: "25rem" }}
                 >
-                    <h5 className="card-title">No CSV Detected</h5>
-                    <p className="card-text">
+                    <h5 className="card-title text-white">No CSV Detected</h5>
+                    <p className="card-text text-white">
                         Please check if there a CSV file in the schedules folder and if "app.exe" is running.
                     </p>
                 </div>
