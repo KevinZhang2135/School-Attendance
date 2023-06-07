@@ -118,7 +118,8 @@ export default class App extends Component {
     };
 
     addSubsForTeacher = (teacherName) => {
-        let teacherClasses = this.state.csv.filter(
+        const usedPeriods = []
+        const teacherClasses = this.state.csv.filter(
             (teacher) => teacher[3] === teacherName
         );
 
@@ -127,16 +128,19 @@ export default class App extends Component {
             for (let sub of this.state.csv) {
                 // sub's name is not teacher's name
                 // sub's period is not the teacher's period
+                // sub's period not already added
                 // sub is not already added
 
                 if (
                     sub[3] !== teacherName &&
                     sub[6] !== period &&
+                    !usedPeriods.includes(period) &&
                     this.state.checkout.filter(
                         (substitute) => substitute.name === sub[3]
                     ).length === 0
                 ) {
                     this.addSubstitute(sub[3], teacherName, period);
+                    usedPeriods.push(period);
                     break;
                 }
             }

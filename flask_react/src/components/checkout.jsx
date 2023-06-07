@@ -15,7 +15,7 @@ export default class Checkout extends Component {
             confirmSubstitute,
             confirmAllSubstitutes,
             reselectSubstitute,
-            postCSV
+            postCSV,
         } = this.props;
 
         return (

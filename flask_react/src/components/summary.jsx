@@ -10,7 +10,7 @@ export default class Summary extends Component {
             <div
                 className="card my-2 me-3 p-3 float-start shadow-sm"
                 key={teacher.name + teacher.id}
-                style={{ width: "25%" }}
+                style={{ width: "30%" }}
             >
                 <div className="d-flex justify-content-center align-items-center border-bottom border-primary border-3 pb-2 fw-medium">
                     Substitutes for {teacher.name}
@@ -47,10 +47,7 @@ export default class Summary extends Component {
         return (
             <React.Fragment>
                 <NavBar />
-                <main
-                    className="container-fluid p-0 m-0 row"
-                    style={{ height: "100%" }}
-                >
+                <main className="container-fluid p-0 m-0 row">
                     <NavTabs anchor={anchor} refresh={refresh} />
 
                     <div className="col">

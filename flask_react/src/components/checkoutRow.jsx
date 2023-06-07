@@ -10,7 +10,7 @@ export default class CheckoutRow extends Component {
             onPeriodChange,
             confirmSubstitute,
             reselectSubstitute,
-            postCSV
+            postCSV,
         } = this.props;
 
         const periodOptions = [
@@ -77,7 +77,7 @@ export default class CheckoutRow extends Component {
 
                 <div className={rowStyle + " col-1"}>
                     <button
-                        className="btn bg-info container-fluid rounded-pill fw-medium"
+                        className="btn bg-info rounded-pill container-fluid fw-medium"
                         type="submit"
                         onClick={() => {
                             reselectSubstitute(substitute.id);

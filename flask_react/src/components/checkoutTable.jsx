@@ -11,7 +11,7 @@ export default class CheckoutTable extends Component {
             onPeriodChange,
             confirmSubstitute,
             reselectSubstitute,
-            postCSV
+            postCSV,
         } = this.props;
 
         return substitutes.map((substitute, index) => (
@@ -30,7 +30,8 @@ export default class CheckoutTable extends Component {
 
     renderButtons = () => {
         // renders buttons that do all of one task such as confirming all substitutes
-        const { confirmAllSubstitutes, removeAllSubstitutes, postCSV } = this.props;
+        const { confirmAllSubstitutes, removeAllSubstitutes, postCSV } =
+            this.props;
 
         return (
             <div className="align-items-center row mt-4">
@@ -47,7 +48,7 @@ export default class CheckoutTable extends Component {
                         Confirm All
                     </button>
                 </div>
-                
+
                 <div className="align-middle text-start my-2 col-1" />
                 <div className="align-middle text-start my-2 col-1">
                     <button
