@@ -13,6 +13,18 @@ export default class Summary extends Component {
     mapTeachers = () => {
         // maps each teacher to a card
         const { summary } = this.props;
+
+        // sorts summary alphabetically
+        summary.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            } else if (a.name > b.name) {
+                return 1;
+            }
+
+            return 0;
+        });
+
         return (
             <div className="row row-cols-auto">
                 {summary.map((teacher) => (
@@ -20,7 +32,6 @@ export default class Summary extends Component {
                         <SummaryCard teacher={teacher} />
                     </div>
                 ))}
-                ;
             </div>
         );
     };
