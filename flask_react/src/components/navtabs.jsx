@@ -11,7 +11,7 @@ export default class NavTabs extends Component {
         return (
             <div
                 className="container-fluid p-0 col-1 mx-3 bg-white"
-                style={{ width: "10%" }}
+                style={{ width: "150px" }}
             >
                 <a
                     className={
@@ -25,18 +25,19 @@ export default class NavTabs extends Component {
                     Home
                 </a>
                 <a
-                    className={anchor === "checkout" ? selected : unselected}
-                    href="./index.html#checkout"
-                    onClick={() => refresh("checkout")}
-                >
-                    Substitutes
-                </a>
-                <a
                     className={anchor === "schedules" ? selected : unselected}
                     href="./index.html#schedules"
                     onClick={() => refresh("schedules")}
                 >
                     Schedules
+                </a>
+
+                <a
+                    className={anchor === "checkout" ? selected : unselected}
+                    href="./index.html#checkout"
+                    onClick={() => refresh("checkout")}
+                >
+                    Substitutes
                 </a>
 
                 <a

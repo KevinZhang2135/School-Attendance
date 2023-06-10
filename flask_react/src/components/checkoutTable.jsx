@@ -3,6 +3,10 @@ import CheckoutRow from "./checkoutRow";
 import { v4 as uuid } from "uuid";
 
 export default class CheckoutTable extends Component {
+    renderEmpty = () => {
+        return <span className="align-items-center my-1">Nothing to show</span>;
+    };
+
     renderSubstitutes = () => {
         // displays a message if the checkout list is empty
         const {
@@ -80,13 +84,9 @@ export default class CheckoutTable extends Component {
                     </span>
                 </div>
 
-                {substitutes.length === 0 ? (
-                    <span className="align-items-center my-1">
-                        Nothing to show
-                    </span>
-                ) : (
-                    this.renderSubstitutes()
-                )}
+                {substitutes.length === 0
+                    ? this.renderEmpty()
+                    : this.renderSubstitutes()}
 
                 {substitutes.length !== 0 && this.renderButtons()}
             </div>

@@ -72,7 +72,7 @@ export default class SelectionButtons extends Component {
             <div className="col">
                 <div
                     className="card my-2 me-3 p-3 float-start shadow-sm"
-                    style={{ width: "25%" }}
+                    style={{ width: "350px" }}
                 >
                     <h5 className="card-title">Substitute for Teacher</h5>
                     <p className="card-text">
