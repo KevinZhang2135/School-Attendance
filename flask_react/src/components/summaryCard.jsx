@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 export default class SummaryCard extends Component {
     mapSubstitutes = (substitutes) => {
+        // maps the substitues of a teacher into rows
         return substitutes.map((substitute, index) => {
             const style =
                 index & 1

@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid";
 
 export default class CheckoutTable extends Component {
     renderEmpty = () => {
+        // notice when checkout is empty
         return <span className="align-items-center my-1">Nothing to show</span>;
     };
 
