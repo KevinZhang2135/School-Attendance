@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import NavBar from "./navbar";
 import NavTabs from "./navtabs";
 import SelectionButtons from "./selectionButtons";
@@ -18,7 +19,7 @@ export default class Home extends Component {
                     <SelectionButtons
                         addSubsForTeacher={addSubsForTeacher}
                         teacherOptions={teacherOptions}
-                    />
+                    />         
                 </main>
             </React.Fragment>
         );

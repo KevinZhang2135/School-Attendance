@@ -6,7 +6,7 @@ export default class Popup extends Component {
             <div className="">
                 <div
                     className="card my-2 me-3 p-3 float-start bg-danger shadow-sm position-absolute bottom-0 end-0"
-                    style={{ width: "300px", height:"150px" }}
+                    style={{ width: "300px" }}
                 >
                     <h5 className="card-title text-white">No CSV Detected</h5>
                     <p className="card-text text-white">

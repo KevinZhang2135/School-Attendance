@@ -33,39 +33,52 @@ export default class CheckoutTable extends Component {
         ));
     };
 
-    renderButtons = () => {
+    renderHeader = () => {
         // renders buttons that do all of one task such as confirming all substitutes
         const { confirmAllSubstitutes, removeAllSubstitutes, postCSV } =
             this.props;
 
         return (
-            <div className="align-items-center row mt-4">
-                <div className="align-middle text-start my-2 col-5" />
-                <div className="align-middle text-start my-2 col-1">
-                    <button
-                        className="btn bg-success text-white container-fluid rounded-pill fw-medium"
-                        type="submit"
-                        onClick={() => {
-                            confirmAllSubstitutes();
-                            postCSV();
-                        }}
-                    >
-                        Confirm All
-                    </button>
-                </div>
+            <React.Fragment>
+                <div className="align-items-center border-bottom border-primary border-3 mb-2 row bg-white sticky-top fw-medium">
+                    <span className="align-start text-start my-2 mx-0 col-2">
+                        Substitute
+                    </span>
 
-                <div className="align-middle text-start my-2 col-1" />
-                <div className="align-middle text-start my-2 col-1">
-                    <button
-                        className="btn bg-danger text-white container-fluid fw-medium"
-                        onClick={() => {
-                            removeAllSubstitutes();
-                        }}
-                    >
-                        Cancel All
-                    </button>
+                    <span className="align-start text-start my-2 mx-0 col-2">
+                        Teacher
+                    </span>
+
+                    <span className="align-start text-start my-2 mx-0 col-1">
+                        Period
+                    </span>
+
+                    <div className="align-middle text-start my-2 col-1">
+                        <button
+                            className="btn bg-success text-white container-fluid rounded-pill fw-medium"
+                            type="submit"
+                            onClick={() => {
+                                confirmAllSubstitutes();
+                                postCSV();
+                            }}
+                        >
+                            Confirm All
+                        </button>
+                    </div>
+
+                    <div className="align-middle text-start my-2 col-1" />
+                    <div className="align-middle text-start my-2 col-1">
+                        <button
+                            className="btn bg-danger text-white container-fluid fw-medium"
+                            onClick={() => {
+                                removeAllSubstitutes();
+                            }}
+                        >
+                            Cancel All
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     };
 
@@ -73,23 +86,11 @@ export default class CheckoutTable extends Component {
         const { substitutes } = this.props;
         return (
             <div className="col">
-                <div className="align-items-center border-bottom border-primary border-3 mb-2 row bg-white sticky-top fw-medium">
-                    <span className="align-start text-start my-2 mx-0 col-2">
-                        Substitute
-                    </span>
-                    <span className="align-start text-start my-2 mx-0 col-2">
-                        Teacher
-                    </span>
-                    <span className="align-start text-start my-2 mx-0 col-1">
-                        Period
-                    </span>
-                </div>
+                {substitutes.length !== 0 && this.renderHeader()}
 
                 {substitutes.length === 0
                     ? this.renderEmpty()
                     : this.renderSubstitutes()}
-
-                {substitutes.length !== 0 && this.renderButtons()}
             </div>
         );
     };
