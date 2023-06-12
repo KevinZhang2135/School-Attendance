@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import * as Icon from "react-bootstrap-icons";
 
 import ScheduleHeader from "./scheduleHeader";
 import ScheduleRow from "./scheduleRow";
@@ -27,6 +26,7 @@ export default class ScheduleTable extends Component {
             <ScheduleHeader
                 key={csvHeader}
                 header={csvHeader}
+                sortReversed={this.state.sortReversed}
                 sortIndex={this.state.sortIndex}
                 updateSort={this.updateSort}
             />
@@ -39,9 +39,8 @@ export default class ScheduleTable extends Component {
 
         if (newSortIndex === this.state.sortIndex) {
             this.setState({ sortReversed: !this.state.sortReversed });
-
         } else {
-            this.setState({sortIndex: newSortIndex, sortReversed: false });
+            this.setState({ sortIndex: newSortIndex, sortReversed: false });
         }
     };
 
@@ -56,13 +55,12 @@ export default class ScheduleTable extends Component {
             if (a[sortIndex] === b[sortIndex]) {
                 return 0;
             }
-            
+
             if (sortReversed) {
                 return a[sortIndex] > b[sortIndex] ? -1 : 1;
             }
 
             return a[sortIndex] < b[sortIndex] ? -1 : 1;
-            
         });
 
         const mappedSubOptions = subOptions.map((teacherName) => {
