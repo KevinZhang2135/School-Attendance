@@ -4,8 +4,10 @@ from flask_cors import CORS
 import csv
 import json
 import os
+import sys
 
-CSV_FILE_PATH = f'{os.getcwd()}/schedules/schedule.csv'
+dir = os.path.dirname(sys.argv[0])
+CSV_FILE_PATH = f'{os.path.dirname(dir)}/schedules/schedule.csv'
 api = Flask(__name__)
 CORS(api)
 
