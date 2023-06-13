@@ -1,12 +1,13 @@
 from flask import Flask, request
 from flask_cors import CORS
+
 import csv
 import json
+import os
 
-CSV_FILE_PATH = './../schedules/schedule.csv'
+CSV_FILE_PATH = f'{os.getcwd()}/schedules/schedule.csv'
 api = Flask(__name__)
 CORS(api)
-
 
 @api.route('/', methods=['POST', 'GET'])
 def handle_fetch_request():
